@@ -1,0 +1,57 @@
+.recap-card {
+	white-space: nowrap;
+}
+
+#movements-page-container .recap-card > div {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+#movements-page-container .recap-card > table {
+	text-align: right;
+	margin: auto;
+}
+
+#movements-page-container .recap-card > table tr td,
+#movements-page-container .recap-card > table tr td * {
+	vertical-align: middle;
+}
+
+/*
+
+
+MOVEMENTS
+
+
+*/
+#movements-page-container .movements-page-controls {
+	display: flex;
+	flex-wrap: wrap;
+}
+#movements-page-container .movements-page-controls > div {
+	margin: 1em 0;
+}
+#movements-page-container .movements-page-controls > div:first-child {
+	display: flex;
+}
+#movements-page-container .movements-page-controls .mpc-refresh {
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+	margin-right: 0.5em;
+}
+#movements-page-container .movements-page-controls .mpc-from-to-picker {
+	display: flex;
+}
+#movements-page-container .movements-page-controls .mpc-from-to-picker > * {
+	margin: 0 0.5em;
+}
+#movements-page-container .movements-page-controls .mpc-cat-picker {
+	max-width: 100%;
+}
+#movements-page-container .movements-page-controls .mpc-cat-picker > * {
+	margin: 0 0 0 0.5em;
+	min-width: 15em;
+	max-width: 100%;
+}
+

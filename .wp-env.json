@@ -1,0 +1,34 @@
+{
+	"core": null,
+	"plugins": [
+		"./apps/wordpress/sxmp-external-sync/dev-assets/woocommerce"
+	],
+	"themes": [ 
+		"./apps/wordpress/sxmp-external-sync/dev-assets/storefront"
+	],
+	"mappings": {
+		"wp-content/plugins": "./dist/apps/wordpress"
+	},
+	"config": {
+		"WP_DEBUG_LOG": true,
+		"WP_HOME": "https://admin.sixempress.com:18899/",
+		"WP_TESTS_DOMAIN": "localhost",
+		"WP_SITEURL": "https://admin.sixempress.com:18899/",
+		"WP_DEBUG": true,
+		"X_API_KEY_SE": "dh8a7sd69a7sd8ga7std87a6std9a7std8an7sd8ia7shn8d7ahtsd"
+	},
+	"env": {
+		"development": {
+			"port": 80,
+			"config": {
+				"WP_ENVIRONMENT_TYPE": "local"
+			}
+		},
+		"tests": {
+			"port": 81,
+			"config": {
+				"WP_ENVIRONMENT_TYPE": "staging"
+			}
+		}
+	}
+}

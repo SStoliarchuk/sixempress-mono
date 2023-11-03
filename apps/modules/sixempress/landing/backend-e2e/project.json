@@ -1,0 +1,35 @@
+{
+  "name": "modules-sixempress-landing-backend-e2e",
+  "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/modules/sixempress/landing/backend-e2e/src",
+  "projectType": "application",
+  "targets": {
+    "e2e": {
+      "executor": "@nx/cypress:cypress",
+      "options": {
+        "cypressConfig": "apps/modules/sixempress/landing/backend-e2e/cypress.config.ts",
+        "devServerTarget": "modules-sixempress-landing-backend:serve:development",
+        "testingType": "e2e"
+      },
+      "configurations": {
+        "production": {
+          "devServerTarget": "modules-sixempress-landing-backend:serve:production"
+        },
+        "ci": {
+          "devServerTarget": "modules-sixempress-landing-backend:serve-static"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "apps/modules/sixempress/landing/backend-e2e/**/*.{js,ts}"
+        ]
+      }
+    }
+  },
+  "tags": [],
+  "implicitDependencies": ["modules-sixempress-landing-backend"]
+}

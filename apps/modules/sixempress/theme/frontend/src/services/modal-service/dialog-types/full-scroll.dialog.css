@@ -1,0 +1,17 @@
+/* ""fixes"" the overscroll behaviour for safari */
+/* we toggle this "fix only when modals are present because safari has a bug that it wont let you click after you close the modal ? */
+/* wow... is this how developers felt for IE ? */
+/* this overscroll behaviour brakes up the modals */
+/* https://stackoverflow.com/questions/30102792/css-media-query-to-target-only-ios-devices */
+/*  */
+/*  */
+/* we use modals-opened instead of modals as we need to restore the x,y scroll on close */
+/* and we can restore only on the onClose handler */
+
+/* @supports (-webkit-touch-callout: none) {
+	html[modals-opened] #root {
+		height: 100vh;
+		width: 100vw;
+		position: fixed;
+	}
+} */

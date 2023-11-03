@@ -1,0 +1,27 @@
+{
+  "name": "modules-sixempress-usedproducts",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@stlse/modules-nx:build",
+      "options": {
+        "frontend": {
+          "projectName": "modules-sixempress-usedproducts-frontend",
+          "outputPath": "dist/apps/modules/sixempress/usedproducts/frontend"
+        },
+        "backend": {
+          "projectName": "modules-sixempress-usedproducts-backend",
+          "outputPath": "dist/apps/modules/sixempress/usedproducts/backend"
+        },
+        "compressedOutput": "dist/apps/modules/sixempress/usedproducts",
+        "compressedOutputName": "modules-sixempress-usedproducts"
+      }
+    }
+  },
+  "implicitDependencies": [
+    "modules-sixempress-usedproducts-frontend",
+    "modules-sixempress-usedproducts-backend"
+  ]
+}

@@ -1,0 +1,247 @@
+.sale-desk-root {
+	display: flex;
+	gap: 10px;
+}
+
+/* quick pops left side */
+.sale-desk-root > :first-child {
+	/* some magic here */
+	/* https://dev.to/martyhimmel/quick-tip-to-stop-flexbox-from-overflowing-peb */
+	flex: 1 1 0;
+	min-width: 0;
+}
+
+/* receipt */
+.sale-desk-root > :last-child {
+	width: 25em;
+}
+
+/* hide quick pops left side on mobile */
+@media all and (max-width: 768px) {
+	.sale-desk-root > :first-child {
+		display: none;
+	}
+	.sale-desk-root > :last-child {
+		flex: 1 1 0;
+	}
+}
+
+/* tabs button are not proper color for page bg */
+.tabs-container > div > div:first-child svg, 
+.tabs-container > div > div:last-child svg {
+	fill: var(--main-text)
+}
+/* 
+
+quick pops container 
+
+*/
+.sale-desk-quick-pops {
+	/* max-height: 46.5em; */
+	overflow: auto;
+}
+.sale-desk-quick-pops, .receipt-container {
+	min-height: 40vh;
+}
+.sale-receipt-empty {
+	opacity: 0.4;
+	text-align: center;
+}
+.sale-desk-quick-pops-empty {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.sale-desk-quick-pops-empty > div {
+	display: flex;
+	gap: 20px;
+	opacity: 0.4;
+	align-items: center;
+}
+.sale-desk-quick-pops-empty > div {
+	font-size: 2em;
+}
+.sale-desk-quick-pops-empty svg {
+	font-size: 2em;
+}
+.sale-desk-infinite-loader-container {
+	width: 100% !important;
+	background: transparent !important;
+	height: 4em !important;
+	justify-content: center;
+	align-items: center;
+}
+.sale-product-list-top {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+/* 
+
+single pop container 
+
+*/
+.sale-desk-quick-pops-container {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 30px;
+	justify-content: center;
+}
+
+.sale-desk-quick-pops-container > * {
+	width: 200px;
+	height: 200px;
+	display: flex;
+	flex-direction: column;
+	cursor: pointer;
+	border-radius: 8px;
+	overflow: hidden;
+	background: var(--paper-accent);
+}
+.sale-desk-quick-pops-container .pop-image-container {
+	width: 100%;
+	min-height: 0;
+	flex-grow: 1;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+}
+.sale-desk-quick-pops-container .pop-image-container img {
+	height: 100%;
+	width: 100%;
+	object-fit: contain;
+}
+.sale-desk-quick-pops-container .d-flex {
+	align-items: center;
+	gap: 5px;
+}
+
+.sale-tab-type:not(.sale-tab-type-returns) .pop-no-stock {
+	position: relative;
+	pointer-events: none;
+	z-index: 1;
+}
+.sale-tab-type:not(.sale-tab-type-returns) .pop-no-stock::after { 
+	content: " ";
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+	background: repeating-linear-gradient(45deg, rgba(255, 0, 0, 0.3) 0px, rgba(255, 0, 0, 0.3) 25px, rgba(0, 0, 0, 0) 25px, rgba(0, 0, 0, 0) 50px);
+}
+/* force info btn to be enabled */
+.pop-info-btn {
+	background: var(--paper-accent) !important;
+	position: relative;
+	z-index: 10;
+	pointer-events: all;
+}
+
+.change-amount-var, 
+.variation-popover-list-container > * {
+	cursor: pointer;
+	display: flex;
+	padding-right: 2em;
+	margin: 1em 0;
+	align-items: center;
+}
+.change-amount-var {
+	justify-content: center;
+}
+
+.variation-popover-list-container > *:hover {
+	font-weight: bold;
+}
+
+/*
+
+receipt
+
+*/
+.sale-customer-field-container {
+	border-bottom: 1px solid var(--paper-accent);
+}
+.receipt-container {
+	max-height: 37em;
+	overflow: auto;
+}
+.receipt-table {
+	font-size: 1.3em;
+	font-weight: bold;
+}
+.receipt-table tr {
+	vertical-align: top;
+}
+.receipt-table-manual td:nth-child(2) {
+	min-width: 5em;
+}
+
+.receipt-table-coupons td:not(:first-child),
+.receipt-table-manual td:not(:first-child),
+.receipt-table-products td:not(:nth-child(2)) {
+	white-space: nowrap;
+}
+.receipt-table-coupons td:first-child,
+.receipt-table-manual td:first-child,
+.receipt-table-products td:nth-child(2) {
+	width: 100%;
+}
+
+.receipt-bottom-controls-container, 
+.receipt-bottom-controls-container > * {
+	display: flex;
+	align-items: center;
+}
+.receipt-bottom-controls-container > :first-child {
+	width: 100%;
+	font-size: 1.25em;
+	padding-right: 1em;
+}
+.receipt-bottom-controls-container > :first-child > table td:last-child {
+	font-weight: bold;
+}
+.sale-percentage-container {
+	display: flex;
+	align-items: center;
+}
+.sale-percentage-container > :first-child {
+	width: 6em;
+}
+.sale-percentage-container > :last-child {
+
+	padding-left: 1em;
+	white-space: nowrap;
+}
+
+.sale-desk-pay-medium > div:first-child {
+	height: 0;
+}
+.sale-desk-pay-medium > div:first-child > span {
+	position: relative;
+	top: -4px;
+}
+.sale-desk-pay-medium-remove {
+	display: flex;
+	align-items: center;
+}
+.sale-desk-pay-medium-remove > :first-child {
+	position: relative;
+	top: -3px;
+}
+
+.sale-multiple-barcodes-choice {
+	width: 100%;
+}
+.sale-multiple-barcodes-choice td {
+	padding-top: 1.2em;
+}
+.sale-multiple-barcodes-choice:last-child {
+	text-align: right;
+}
+
+/* .sale-quick-medium-btn-container > button {
+	padding-right: 0;
+	padding-left: 0;
+} */

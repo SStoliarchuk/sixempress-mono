@@ -1,0 +1,35 @@
+{
+  "name": "modules-sixempress-calendar-frontend-e2e",
+  "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/modules/sixempress/calendar/frontend-e2e/src",
+  "projectType": "application",
+  "targets": {
+    "e2e": {
+      "executor": "@nx/cypress:cypress",
+      "options": {
+        "cypressConfig": "apps/modules/sixempress/calendar/frontend-e2e/cypress.json",
+        "devServerTarget": "modules-sixempress-calendar-frontend:serve:development",
+        "testingType": "e2e"
+      },
+      "configurations": {
+        "production": {
+          "devServerTarget": "modules-sixempress-calendar-frontend:serve:production"
+        },
+        "ci": {
+          "devServerTarget": "modules-sixempress-calendar-frontend:serve-static"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "apps/modules/sixempress/calendar/frontend-e2e/**/*.{js,ts}"
+        ]
+      }
+    }
+  },
+  "tags": [],
+  "implicitDependencies": ["modules-sixempress-calendar-frontend"]
+}

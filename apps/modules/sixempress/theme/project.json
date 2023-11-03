@@ -1,0 +1,27 @@
+{
+  "name": "modules-sixempress-theme",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@stlse/modules-nx:build",
+      "options": {
+        "frontend": {
+          "projectName": "modules-sixempress-theme-frontend",
+          "outputPath": "dist/apps/modules/sixempress/theme/frontend"
+        },
+        "backend": {
+          "projectName": "modules-sixempress-theme-backend",
+          "outputPath": "dist/apps/modules/sixempress/theme/backend"
+        },
+        "compressedOutput": "dist/apps/modules/sixempress/theme",
+        "compressedOutputName": "modules-sixempress-theme"
+      }
+    }
+  },
+  "implicitDependencies": [
+    "modules-sixempress-theme-frontend",
+    "modules-sixempress-theme-backend"
+  ]
+}

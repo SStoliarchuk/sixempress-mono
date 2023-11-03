@@ -1,0 +1,27 @@
+{
+  "name": "modules-sixempress-labac",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@stlse/modules-nx:build",
+      "options": {
+        "frontend": {
+          "projectName": "modules-sixempress-labac-frontend",
+          "outputPath": "dist/apps/modules/sixempress/labac/frontend"
+        },
+        "backend": {
+          "projectName": "modules-sixempress-labac-backend",
+          "outputPath": "dist/apps/modules/sixempress/labac/backend"
+        },
+        "compressedOutput": "dist/apps/modules/sixempress/labac",
+        "compressedOutputName": "modules-sixempress-labac"
+      }
+    }
+  },
+  "implicitDependencies": [
+    "modules-sixempress-labac-frontend",
+    "modules-sixempress-labac-backend"
+  ]
+}

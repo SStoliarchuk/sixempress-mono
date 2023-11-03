@@ -1,0 +1,157 @@
+{
+  "name": "modules-sixempress-landing-backend",
+  "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/modules/sixempress/landing/backend/src",
+  "projectType": "application",
+  "targets": {
+    "serve": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "nx serve-browser modules-sixempress-landing-backend",
+          "nx serve-server modules-sixempress-landing-backend"
+        ],
+        "parallel": true
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "apps/modules/sixempress/landing/backend/**/*.{ts,tsx,js,jsx}"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/modules/sixempress/landing/backend/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
+    },
+    "serve-browser": {
+      "executor": "@nx/webpack:dev-server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "modules-sixempress-landing-backend:build-browser",
+        "hmr": true,
+        "allowedHosts": "all",
+        "port": 4200
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "modules-sixempress-landing-backend:build-browser:development"
+        },
+        "production": {
+          "buildTarget": "modules-sixempress-landing-backend:build-browser:production",
+          "hmr": false
+        }
+      }
+    },
+    "serve-server": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "modules-sixempress-landing-backend:build:development",
+        "buildTargetOptions": {
+          "watch": true
+        }
+      },
+      "configurations": {
+        "development": {},
+        "production": {
+          "buildTarget": "modules-sixempress-landing-backend:build:production"
+        }
+      }
+    },
+    "build-browser": {
+      "executor": "@nx/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "compiler": "babel",
+        "outputPath": "dist/apps/modules/sixempress/landing/browser",
+        "index": "node_modules/@stlse/modules-nx/plugins/ssr/index.html",
+        "baseHref": "/",
+        "main": "apps/modules/sixempress/landing/backend/src/main.tsx",
+        "tsConfig": "apps/modules/sixempress/landing/backend/tsconfig.app.json",
+        "assets": [
+          "apps/modules/sixempress/landing/backend/src/robots.txt",
+          "apps/modules/sixempress/landing/backend/src/sitemap.xml",
+          "apps/modules/sixempress/landing/backend/src/assets"
+        ],
+        "styles": ["apps/modules/sixempress/landing/backend/src/styles.css"],
+        "scripts": [],
+        "isolatedConfig": true,
+        "webpackConfig": "apps/modules/sixempress/landing/backend/webpack.config.js",
+        "postcssConfig": "apps/modules/sixempress/landing/backend/postcss.config.js"
+      },
+      "configurations": {
+        "development": {
+          "extractLicenses": false,
+          "optimization": false,
+          "sourceMap": true,
+          "vendorChunk": true
+        },
+        "production": {
+          "fileReplacements": [
+            {
+              "replace": "apps/modules/sixempress/landing/backend/src/environments/environment.ts",
+              "with": "apps/modules/sixempress/landing/backend/src/environments/environment.prod.ts"
+            }
+          ],
+          "optimization": true,
+          "outputHashing": "all",
+          "sourceMap": false,
+          "namedChunks": false,
+          "extractLicenses": true,
+          "vendorChunk": false
+        }
+      }
+    },
+    "build": {
+      "dependsOn": ["build-browser"],
+      "executor": "@nx/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "target": "node",
+        "main": "apps/modules/sixempress/landing/backend/src/module-entry.tsx",
+        "outputPath": "dist/apps/modules/sixempress/landing/backend",
+        "tsConfig": "apps/modules/sixempress/landing/backend/tsconfig.server.json",
+        "compiler": "babel",
+        "externalDependencies": "all",
+        "outputHashing": "none",
+        "isolatedConfig": true,
+        "webpackConfig": "apps/modules/sixempress/landing/backend/webpack.backend.js",
+        "outputFileName": "module-entry.js",
+        "fileReplacements": []
+      },
+      "configurations": {
+        "development": {
+          "optimization": false,
+          "sourceMap": true,
+          "fileReplacements": []
+        },
+        "production": {
+          "fileReplacements": [
+            {
+              "replace": "apps/modules/sixempress/landing/backend/src/environments/environment.ts",
+              "with": "apps/modules/sixempress/landing/backend/src/environments/environment.prod.ts"
+            }
+          ],
+          "sourceMap": false
+        }
+      }
+    }
+  },
+  "tags": []
+}

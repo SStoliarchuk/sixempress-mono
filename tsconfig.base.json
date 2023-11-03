@@ -1,0 +1,58 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "strictNullChecks": false,
+    "importHelpers": true,
+    "target": "esnext",
+    "resolveJsonModule": true,
+    "module": "esnext",
+    "lib": ["es2017", "es2020", "dom"],
+    "skipLibCheck": true,
+    "noImplicitReturns": false,
+    "noImplicitAny": false,
+    "allowJs": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "noFallthroughCasesInSwitch": true,
+    "skipDefaultLibCheck": true,
+    "baseUrl": ".",
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "paths": {
+      "@sixempress/abac-backend": [
+        "apps/modules/sixempress/labac/backend/src/exports.ts"
+      ],
+      "@sixempress/abac-frontend": [
+        "apps/modules/sixempress/labac/frontend/src/exports.tsx"
+      ],
+      "@sixempress/be-multi-purpose": [
+        "apps/modules/sixempress/multip-core/backend/src/exports.ts"
+      ],
+      "@sixempress/contracts-agnostic": [
+        "libs/contracts-agnostic/src/index.ts"
+      ],
+      "@sixempress/external-sync": [
+        "apps/modules/sixempress/external-sync/backend/src/exports.ts"
+      ],
+      "@sixempress/main-be-lib": ["libs/main-be-lib/src/index.ts"],
+      "@sixempress/main-fe-lib": ["libs/main-fe-lib/src/index.ts"],
+      "@sixempress/modules-felib-shim": [
+        "libs/modules-felib-shim/src/index.ts"
+      ],
+      "@sixempress/multi-purpose": [
+        "apps/modules/sixempress/multip-core/frontend/src/exports.tsx"
+      ],
+      "@sixempress/theme": [
+        "apps/modules/sixempress/theme/frontend/src/exports.tsx"
+      ],
+      "@sixempress/utilities": ["libs/utilities/src/index.ts"]
+    }
+  },
+  "exclude": ["node_modules", "tmp"]
+}

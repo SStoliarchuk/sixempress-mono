@@ -1,0 +1,11 @@
+**/.git
+**/.DS_Store
+.dockerignore
+
+**/node_modules
+**/vendor
+**/build
+**/infrastructure/volumes
+
+tmp
+/tmp

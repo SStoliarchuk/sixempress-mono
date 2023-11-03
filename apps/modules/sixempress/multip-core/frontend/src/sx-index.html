@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="it">
+  <head>
+    <meta charset="utf-8"/>
+		<meta name="robots" content="noindex, nofollow">
+		
+		<meta name="theme-color" content="#424242" />
+		
+		<!-- Different favicons icons -->
+		<link rel="shortcut icon" sizes="32x32" href="./assets/favicon.ico"/>
+		<link rel="icon" type="image/png" sizes="32x32" href="./assets/images/32.png"/>
+		<link rel="icon" type="image/png" sizes="96x96" href="./assets/images/96.png"/>
+		<link rel="icon" type="image/png" sizes="192x192"  href="./assets/images/192.png"/>
+		
+		<!-- Some config for apple -->
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+
+		<!-- iPhone ICON -->
+		<link rel="apple-touch-icon" sizes="57x57" href="./assets/images/57.png">
+		<link rel="apple-touch-icon" sizes="60x60" href="./assets/images/60.png">
+		<link rel="apple-touch-icon" sizes="72x72" href="./assets/images/72.png">
+		<link rel="apple-touch-icon" sizes="76x76" href="./assets/images/76.png">
+		<link rel="apple-touch-icon" sizes="114x114" href="./assets/images/114.png">
+		<link rel="apple-touch-icon" sizes="120x120" href="./assets/images/120.png">
+		<link rel="apple-touch-icon" sizes="144x144" href="./assets/images/144.png">
+		<link rel="apple-touch-icon" sizes="152x152" href="./assets/images/152.png">
+		<link rel="apple-touch-icon" sizes="180x180" href="./assets/images/180.png">
+		<link rel="apple-touch-icon" sizes="256x256" href="./assets/images/256.png">
+		<link rel="apple-touch-icon" sizes="512x512" href="./assets/images/512.png">
+		<link rel="apple-touch-icon" sizes="1024x1024" href="./assets/images/1024.png">
+
+
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!--
+      manifest.json provides metadata used when your web app is installed on a
+      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
+    -->
+		<link rel="manifest" href="./assets/manifest.json" />
+
+    <!--
+      Notice the use of %PUBLIC_URL% in the tags above.
+      It will be replaced with the URL of the `public` folder during the build.
+      Only files inside the `public` folder can be referenced from the HTML.
+
+      Unlike "/favicon.ico" or "favicon.ico", "/favicon.ico" will
+      work correctly both with client-side routing and a non-root public URL.
+      Learn how to configure a non-root public URL by running `npm run build`.
+    -->
+    <title>SIXEMPRESS</title>
+  </head>
+  <body>
+		<noscript>You need to enable JavaScript to run this app.</noscript>
+
+		<div id='app-loading-container'>
+			<style>
+				#app-loading-overlay {
+					background: rgba(0, 0, 0, 0.8);
+					z-index: 10000;
+					width: 100%;
+					height: 100%;
+					position: fixed;
+					top: 0;
+					left: 0;
+					display: flex;
+					align-items: center;
+					justify-content: center
+				}
+				.lds-dual-ring {
+					display: inline-block;
+				}
+				.lds-dual-ring:after {
+					content: " ";
+					display: block;
+					width: 46px;
+					height: 46px;
+					margin: 1px;
+					border-radius: 50%;
+					border: 5px solid #fff;
+					border-color: #fff transparent #fff transparent;
+					animation: lds-dual-ring 1.2s linear infinite;
+				}
+				@keyframes lds-dual-ring {
+					0% {
+						transform: rotate(0deg);
+					}
+					100% {
+						transform: rotate(360deg);
+					}
+				}
+				.loading-text {
+					font-family: sans-serif;
+					letter-spacing: .15em;
+					text-shadow: -1px -1px 1px rgba(255,255,255,.1), 1px 1px 1px rgba(0,0,0,.5);
+				}
+			</style>
+			<div id='app-loading-overlay'>
+				<div style="color: white; text-align: center">
+					<div class="lds-dual-ring"></div>
+					<div class='loading-text'>Caricamento in corso...</div>
+				</div>
+			</div>
+		</div>
+
+
+    <div id="root"></div>
+    <!--
+      This HTML file is a template.
+      If you open it directly in the browser, you will see an empty page.
+
+      You can add webfonts, meta tags, or analytics to this file.
+      The build step will place the bundled scripts into the <body> tag.
+
+      To begin the development, run `npm start` or `yarn start`.
+      To create a production bundle, use `npm run build` or `yarn build`.
+		-->
+  </body>
+</html>

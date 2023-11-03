@@ -1,0 +1,54 @@
+.sxmpes-repair-status-table th {
+	vertical-align: top;
+	text-align: left;
+	padding-right: 20px;
+}
+
+.sxmpes-repair-scan-svg-container {
+	width: 25em;
+	max-width: 85vw;
+	margin: auto;
+
+	svg {
+		width: 100%;
+		height: 100%;
+	}
+}
+/*.sxmpes-repair-scan-svg-container svg * {
+	fill: red;
+	stroke: red;
+} */
+
+.sxmpes-repair-status-head {
+	margin-bottom: 5px;
+	text-align: center;
+	padding: 10px 0;
+	
+	h3 {
+		margin: 0;
+	}
+	span {
+		white-space: nowrap;
+	}
+}
+.sxmpes-repair-status-4 {
+	border: 1px solid green;
+
+	span {
+		background: green;
+		padding: 0 10px;
+		color: white;
+		border-radius: 5px;
+	}
+}
+.sxmpes-repair-status-5 {
+	border: 1px solid red;
+	
+	span {
+		background: red;
+		padding: 0 10px;
+		color: white;
+		border-radius: 5px;
+	}
+}
+

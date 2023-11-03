@@ -1,0 +1,40 @@
+
+.mov-graph .control-top {
+	position: relative;
+	z-index: 1;
+	bottom: -1px;
+	border-bottom-left-radius: 0;
+	border-bottom-right-radius: 0;
+}
+
+.mov-graph .control-top + .chart-grid-container .chart-paper {
+	border-top-left-radius: 0;
+	border-top-right-radius: 0;
+	border-top: 0;
+}
+
+.mov-graph .chart-grid-container {
+	z-index: 2;
+	position: relative;
+}
+
+
+@media all and (max-width: 600px) {
+	.mov-graph .control-top + .chart-grid-container > :first-child .chart-paper {
+		border-radius: 0;
+	}
+	.mov-graph .control-top + .chart-grid-container > :first-child {
+		padding-bottom: 0;
+	}
+	.mov-graph .control-top + .chart-grid-container > :last-child {
+		padding-top: 0;
+	}
+}
+
+/* 
+xs: 0px
+sm: 600px
+md: 960px
+lg: 1280px
+xl: 1920px
+*/

@@ -1,0 +1,89 @@
+{
+  "name": "modules-sixempress-labac-frontend",
+  "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/modules/sixempress/labac/frontend/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nx/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "compiler": "babel",
+        "outputPath": "dist/apps/modules/sixempress/labac/frontend",
+        "index": "apps/modules/sixempress/labac/frontend/src/index.html",
+        "baseHref": "/",
+        "main": "apps/modules/sixempress/labac/frontend/src/module-entry.tsx",
+        "tsConfig": "apps/modules/sixempress/labac/frontend/tsconfig.app.json",
+        "assets": [
+          "apps/modules/sixempress/labac/frontend/src/favicon.ico",
+          "apps/modules/sixempress/labac/frontend/src/assets"
+        ],
+        "styles": [],
+        "scripts": [],
+        "isolatedConfig": true,
+        "webpackConfig": "apps/modules/sixempress/labac/frontend/webpack.config.js",
+        "outputFileName": "module-entry.js"
+      },
+      "configurations": {
+        "development": {
+          "extractLicenses": false,
+          "optimization": false,
+          "sourceMap": true,
+          "vendorChunk": true
+        },
+        "production": {
+          "fileReplacements": [
+            {
+              "replace": "apps/modules/sixempress/labac/frontend/src/environments/environment.ts",
+              "with": "apps/modules/sixempress/labac/frontend/src/environments/environment.prod.ts"
+            }
+          ],
+          "optimization": true,
+          "outputHashing": "all",
+          "sourceMap": false,
+          "namedChunks": false,
+          "extractLicenses": true,
+          "vendorChunk": false
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nx/webpack:dev-server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "modules-sixempress-labac-frontend:build",
+        "compress": true,
+        "port": 4202,
+        "allowedHosts": "all"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "modules-sixempress-labac-frontend:build:development"
+        },
+        "production": {
+          "buildTarget": "modules-sixempress-labac-frontend:build:production",
+          "hmr": false
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "apps/modules/sixempress/labac/frontend/**/*.{ts,tsx,js,jsx}"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["coverage/apps/modules/sixempress/labac/frontend"],
+      "options": {
+        "jestConfig": "apps/modules/sixempress/labac/frontend/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

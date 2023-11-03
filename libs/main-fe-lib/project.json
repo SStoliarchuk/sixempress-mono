@@ -1,0 +1,24 @@
+{
+  "name": "main-fe-lib",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/main-fe-lib/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/main-fe-lib/**/*.{ts,tsx,js,jsx}"]
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/libs/main-fe-lib"],
+      "options": {
+        "jestConfig": "libs/main-fe-lib/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  }
+}

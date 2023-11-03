@@ -1,0 +1,287 @@
+/*
+
+
+ normalizing the styles
+
+ 
+*/
+
+a { text-decoration: none; }
+* { 
+	/* why does this exists */
+	outline: none; 
+	/* why (disable overlay when clicking elements) */
+	-webkit-tap-highlight-color: rgba(0,0,0,0);
+	/* disable double-click to zoom */
+	touch-action: manipulation;
+}
+
+/* Removes the gray background in MUI Select */
+.fixMUISelect > div:focus { background: transparent !important }
+
+/* Dark and light palette base*/
+html { background-color: var(--page-bg) !important; }
+body { background-color: var(--page-bg) !important; }
+/* Increase weight so it's easier to see */
+/* html.dark * { font-weight: bold } */
+
+/* Prevents the zoom in safari while typing */
+@media all and (max-width: 600px) { input, select, textarea { font-size: 16px; } }
+
+/* The loader of the fooken print js modal */
+html.dark #printJS-Modal { color: white !important; background: rgba(0, 0, 0, 0.9) !important }
+html.light #printJS-Modal { color: black !important; background: rgba(255, 255, 255, 0.9) !important }
+.printClose { display: none; }
+/*
+ html.dark * {
+  scrollbar-face-color: #646464;
+  scrollbar-base-color: #646464;
+  scrollbar-3dlight-color: #646464;
+  scrollbar-highlight-color: #646464;
+  scrollbar-track-color: #000;
+  scrollbar-arrow-color: #000;
+  scrollbar-shadow-color: #646464;
+  scrollbar-dark-shadow-color: #646464;
+}
+*/
+
+/* ::-webkit-scrollbar { width: 8px; height: 3px;} */
+/* ::-webkit-scrollbar-track {  background-color: #646464;} */
+/* ::-webkit-scrollbar-track-piece { background-color: #000;} */
+/* ::-webkit-scrollbar-thumb { height: 50px; background-color: #666; border-radius: 3px;} */
+/* ::-webkit-scrollbar-corner { background-color: #646464;}} */
+
+/* ::-webkit-resizer { background-color: #666;} */
+
+/* html.dark ::-webkit-scrollbar { width: 6px; height: 6px; }
+html.dark ::-webkit-scrollbar { width: auto; height: auto; }
+html.dark ::-webkit-scrollbar-track { background-color:#666666; }
+html.dark ::-webkit-scrollbar-thumb { background-color: #303030; }
+html.dark ::-webkit-scrollbar-thumb:hover { background-color: var(--primary); } */
+
+
+
+
+/* Allows to use a disabled input */
+/* Used for amts */
+.amts-field input { cursor: pointer; }
+.amts-field > div.Mui-error input::placeholder { 
+	color: var(--error) !important;
+	opacity: 1;
+ }
+
+/*
+
+  Object classes
+
+*/
+
+
+.paper-accent {
+	background-color: var(--paper-accent) !important;
+}
+
+html.dark .paper-accent {
+	border: 0 !important;
+}
+
+/*
+
+
+ Utility classes
+
+
+*/
+
+.text-bold { font-weight: bold; }
+
+.text-center { text-align: center !important; }
+.text-left { text-align: left !important; }
+.text-right { text-align: right !important; }
+
+.no-wrap { white-space: nowrap !important; }
+
+.w-1 { width: 1px !important; }
+.w-100 { width: 100% !important; }
+.mw-100 { max-width: 100% !important; }
+
+.mouse-link { cursor: pointer !important; }
+
+.def-link { color: var(--primary); cursor: pointer; }
+.def-link:hover { text-decoration: underline; }
+
+
+
+.bg-paper { background-color: var(--paper) !important; }
+.bg-paper-accent { background-color: var(--paper-accent) !important; }
+.bg-page { background-color: var(--page-bg) !important; }
+
+.bg-primary { background-color: var(--primary); color: var(--primary-text); }
+.text-primary { color: var(--primary); }
+.bg-secondary { background-color: var(--secondary); color: var(--secondary-text); }
+.text-secondary { color: var(--secondary); }
+.bg-error { background-color: var(--error) !important; color: var(--error-text) !important; }
+.text-error { color: var(--error-text); }
+
+.text-main { color: var(--main-text) !important;; }
+.dynamic-text-color { color: var(--main-text) !important;; }
+.dynamic-border-color { border-color: var(--main-text) !important;; }
+
+.d-none { display: none !important; }
+.d-flex { display: flex !important; }
+.f-wrap { flex-wrap: wrap !important; }
+
+.m-0 { margin: 0 !important; }
+.mt-0 { margin-top: 0 !important; }	
+.mr-0 { margin-right: 0 !important; }
+.mb-0 { margin-bottom: 0 !important; }
+.ml-0 { margin-left: 0 !important; }
+
+.p-0 { padding: 0 !important; }
+.pt-0 { padding-top: 0 !important; }	
+.pr-0 { padding-right: 0 !important; }
+.pb-0 { padding-bottom: 0 !important; }
+.pl-0 { padding-left: 0 !important; }
+
+.b-0 { border: 0 !important; }
+.bt-0 { border-top: 0 !important; }	
+.br-0 { border-right: 0 !important; }
+.bb-0 { border-bottom: 0 !important; }
+.bl-0 { border-left: 0 !important; }
+
+.def-box-expand {
+	margin-left: calc(-1 * calc(var(--spacing) * 2)) !important;
+	width: calc(100% + calc(var(--spacing) * 4)) !important;
+}
+.def-box {
+	padding: calc(var(--spacing) * 2);
+	margin-bottom: calc(var(--spacing) * 2);
+}
+.def-mui-divider {
+	margin: var(--spacing) 0 !important;
+}
+.num-field { 
+	min-width: 3.5em; 
+}
+.price-field { 
+	min-width: 7em !important;
+	max-width: 10em !important;
+}
+.pre-span {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 1em;
+	margin: 0;
+	white-space: break-spaces;
+}
+
+.position-unset {
+	position: unset;
+}
+
+/* 
+xs: 0px
+sm: 600px
+md: 960px
+lg: 1280px
+xl: 1920px
+*/
+
+
+/*
+
+
+	Specifics
+
+
+*/
+
+
+.ae-form {
+	overflow-x: hidden;
+}
+
+/* HTML JSON highlight */
+/* smallUtils */
+.objToHtml_string { color: rgb(120, 190, 120) !important; }
+.objToHtml_number { color: rgb(221, 166, 99) !important; }
+.objToHtml_boolean { color: rgb(221, 166, 99) !important; }
+.objToHtml_null { color: rgb(221, 166, 99) !important; }
+.objToHtml_key { color: rgb(170, 76, 76) !important; }
+
+/* dt-settings popover arrow direction */
+.dt-settings-order-dir-icon { transition: 300ms !important }
+.dt-settings-order-dir-icon.asc { transform: rotate(90deg) }
+.dt-settings-order-dir-icon.desc { transform: rotate(270deg) }
+
+/* rotate shaky effect */
+/* Used for offline snacbar */
+@-webkit-keyframes wiggle
+{
+	0% {-webkit-transform: rotateZ(2deg);}
+	50% {-webkit-transform: rotateZ(-2deg);}
+	100% {-webkit-transform: rotateZ(2deg);}
+}
+@-moz-keyframes wiggle
+{
+	0% {-moz-transform: rotateZ(2deg);}
+	50% {-moz-transform: rotateZ(-2deg);}
+	100% {-moz-transform: rotateZ(2deg);}
+}
+@-o-keyframes wiggle
+{
+	0% {-o-transform: rotateZ(2deg);}
+	50% {-o-transform: rotateZ(-2deg);}
+	100% {-o-transform: rotateZ(2deg);}
+}
+@keyframes wiggle
+{
+	0% {transform: rotateZ(2deg);}
+	50% {transform: rotateZ(-2deg);}
+	100% {transform: rotateZ(2deg);}
+}
+
+.rotate_shake {
+	-webkit-animation: wiggle 0.2s ease infinite;
+	-moz-animation: wiggle 0.2s ease infinite;
+	-o-animation: wiggle 0.2s ease infinite;
+	animation: wiggle 0.2s ease infinite;
+}
+
+
+/* Responsive table */
+/* used by react-utils table */
+.responsive-side-th-table {
+	width: 100%;
+}
+.responsive-side-th-table th {
+	text-align: left
+}
+.responsive-side-th-table td {
+	padding-left: 1em;
+}
+
+
+/* Fixes the <small> tag on the location select field (react-utils.tsx) */
+.loc-select-small-fix {
+	margin-top: -0.3em;
+	display: block;
+	font-size: 0.8em;
+}
+/* 
+	When an outlined select has an empty label, the border is not completely filled
+	but there is an empty space
+	this removes it
+*/
+.fix-mui-select-empty-label ~ div fieldset > legend > span {
+	display: none;
+}
+
+/*
+
+	Idk man, <Badge/> is offscreen for me
+
+*/
+.mui-badge-fix > span {
+	top: 1em;
+	right: 0.8em;
+}

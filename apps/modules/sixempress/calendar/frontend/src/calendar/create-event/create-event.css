@@ -1,0 +1,74 @@
+
+:root {
+	--left-spacing-calendar-body: 0.4em;
+}
+.calendar-create-event-head {
+	display: flex;
+	align-items: center;
+}
+
+/* removes the time from the event */
+.rbc-event-label {
+	display: none;
+}
+
+.cce-body {
+	margin-top: 2em;
+}
+.cce-body-row {
+	display: flex;
+	align-items: center;
+}
+.cce-body-row > *:first-child {
+	margin-right: var(--left-spacing-calendar-body);
+}
+.cce-date-picker {
+	display: flex;
+}
+.cce-date-picker > *:first-child {
+	margin-right: 1.5em;
+}
+.cce-left-icon-padding {
+	padding-left: calc(var(--left-spacing-calendar-body) + 2em);
+}
+.cce-desc-row {
+	margin-top: 0.5em;
+	align-items: flex-start ;
+}
+.cce-desc-row > *:first-child {
+	margin-top: 0.8em;
+}
+
+@media all and (max-width: 600px) {
+	.cce-date-picker {
+		flex-wrap: wrap;
+	}	
+	.cce-date-picker > *:first-child {
+		margin-right: 0;
+	}
+}
+.hairdresser-dialogtitle {
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+	padding: 0 0;
+}
+.hairdresser-dialogtitle > div {
+	padding: 0.5em 1em;
+	padding-top: 0;
+}
+.hairdresser-dialogtitle > div:not(:last-child) {
+	max-width: 13em;
+	overflow: visible;
+}
+
+.hairdresser-template-container {
+	display: flex;
+	align-items: center;
+}
+.hair-template-option {
+	display: flex;
+}
+.hair-template-option > *:first-child {
+	flex: 1
+}

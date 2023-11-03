@@ -1,0 +1,27 @@
+{
+  "name": "modules-sixempress-external-sync",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@stlse/modules-nx:build",
+      "options": {
+        "frontend": {
+          "projectName": "modules-sixempress-external-sync-frontend",
+          "outputPath": "dist/apps/modules/sixempress/external-sync/frontend"
+        },
+        "backend": {
+          "projectName": "modules-sixempress-external-sync-backend",
+          "outputPath": "dist/apps/modules/sixempress/external-sync/backend"
+        },
+        "compressedOutput": "dist/apps/modules/sixempress/external-sync",
+        "compressedOutputName": "modules-sixempress-external-sync"
+      }
+    }
+  },
+  "implicitDependencies": [
+    "modules-sixempress-external-sync-frontend",
+    "modules-sixempress-external-sync-backend"
+  ]
+}

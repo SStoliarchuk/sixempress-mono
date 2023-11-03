@@ -1,0 +1,70 @@
+{
+  "name": "modules-sixempress-external-sync-backend",
+  "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/modules/sixempress/external-sync/backend/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nx/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "target": "node",
+        "compiler": "tsc",
+        "outputPath": "dist/apps/modules/sixempress/external-sync/backend",
+        "main": "apps/modules/sixempress/external-sync/backend/src/module-entry.ts",
+        "tsConfig": "apps/modules/sixempress/external-sync/backend/tsconfig.app.json",
+        "assets": [],
+        "isolatedConfig": true,
+        "webpackConfig": "apps/modules/sixempress/external-sync/backend/webpack.config.js",
+        "outputFileName": "module-entry.js",
+        "fileReplacements": []
+      },
+      "configurations": {
+        "production": {
+          "optimization": true,
+          "extractLicenses": true,
+          "inspect": false,
+          "fileReplacements": [
+            {
+              "replace": "apps/modules/sixempress/external-sync/backend/src/environments/environment.ts",
+              "with": "apps/modules/sixempress/external-sync/backend/src/environments/environment.prod.ts"
+            }
+          ]
+        },
+        "development": {
+          "main": "apps/modules/sixempress/external-sync/backend/src/module-entry.ts"
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nx/js:node",
+      "options": {
+        "buildTarget": "modules-sixempress-external-sync-backend:build:development"
+      },
+      "configurations": {
+        "production": {
+          "buildTarget": "modules-sixempress-external-sync-backend:build:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/modules/sixempress/external-sync/backend/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": [
+        "{workspaceRoot}/coverage/apps/modules/sixempress/external-sync/backend"
+      ],
+      "options": {
+        "jestConfig": "apps/modules/sixempress/external-sync/backend/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

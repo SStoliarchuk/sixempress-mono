@@ -1,0 +1,10 @@
+{
+	"autoload": {
+		"psr-4": {
+			"SIXEMPRESS\\ExternalSync\\": "php"
+		}
+	},
+	"require-dev": {
+		"giacocorsiglia/wordpress-stubs": "^5.1"
+	}
+}

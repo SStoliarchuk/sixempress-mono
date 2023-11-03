@@ -1,0 +1,256 @@
+diff --git a/node_modules/@wordpress/env/lib/build-docker-compose-config.js b/node_modules/@wordpress/env/lib/build-docker-compose-config.js
+index 5336f86..122c5b4 100644
+--- a/node_modules/@wordpress/env/lib/build-docker-compose-config.js
++++ b/node_modules/@wordpress/env/lib/build-docker-compose-config.js
+@@ -173,7 +173,7 @@ module.exports = function buildDockerComposeConfig( config ) {
+ 		services: {
+ 			mysql: {
+ 				image: 'mariadb',
+-				ports: [ '3306' ],
++				// ports: [ '3306' ],
+ 				environment: {
+ 					MYSQL_ROOT_HOST: '%',
+ 					MYSQL_ROOT_PASSWORD:
+@@ -182,17 +182,17 @@ module.exports = function buildDockerComposeConfig( config ) {
+ 				},
+ 				volumes: [ 'mysql:/var/lib/mysql' ],
+ 			},
+-			'tests-mysql': {
+-				image: 'mariadb',
+-				ports: [ '3306' ],
+-				environment: {
+-					MYSQL_ROOT_HOST: '%',
+-					MYSQL_ROOT_PASSWORD:
+-						dbEnv.credentials.WORDPRESS_DB_PASSWORD,
+-					MYSQL_DATABASE: dbEnv.tests.WORDPRESS_DB_NAME,
+-				},
+-				volumes: [ 'mysql-test:/var/lib/mysql' ],
+-			},
++			// 'tests-mysql': {
++			// 	image: 'mariadb',
++			// 	ports: [ '3306' ],
++			// 	environment: {
++			// 		MYSQL_ROOT_HOST: '%',
++			// 		MYSQL_ROOT_PASSWORD:
++			// 			dbEnv.credentials.WORDPRESS_DB_PASSWORD,
++			// 		MYSQL_DATABASE: dbEnv.tests.WORDPRESS_DB_NAME,
++			// 	},
++			// 	volumes: [ 'mysql-test:/var/lib/mysql' ],
++			// },
+ 			wordpress: {
+ 				depends_on: [ 'mysql' ],
+ 				build: {
+@@ -200,10 +200,11 @@ module.exports = function buildDockerComposeConfig( config ) {
+ 					dockerfile: 'WordPress.Dockerfile',
+ 					args: imageBuildArgs,
+ 				},
+-				ports: [ developmentPorts ],
++				// ports: [ developmentPorts ],
++				networks: [ 'default', 'wordpress_network' ],
+ 				environment: {
+-					APACHE_RUN_USER: '#' + hostUser.uid,
+-					APACHE_RUN_GROUP: '#' + hostUser.gid,
++					// APACHE_RUN_USER: '#' + hostUser.uid,
++					// APACHE_RUN_GROUP: '#' + hostUser.gid,
+ 					...dbEnv.credentials,
+ 					...dbEnv.development,
+ 					WP_TESTS_DIR: '/wordpress-phpunit',
+@@ -211,24 +212,24 @@ module.exports = function buildDockerComposeConfig( config ) {
+ 				volumes: developmentMounts,
+ 				extra_hosts: [ 'host.docker.internal:host-gateway' ],
+ 			},
+-			'tests-wordpress': {
+-				depends_on: [ 'tests-mysql' ],
+-				build: {
+-					context: '.',
+-					dockerfile: 'Tests-WordPress.Dockerfile',
+-					args: imageBuildArgs,
+-				},
+-				ports: [ testsPorts ],
+-				environment: {
+-					APACHE_RUN_USER: '#' + hostUser.uid,
+-					APACHE_RUN_GROUP: '#' + hostUser.gid,
+-					...dbEnv.credentials,
+-					...dbEnv.tests,
+-					WP_TESTS_DIR: '/wordpress-phpunit',
+-				},
+-				volumes: testsMounts,
+-				extra_hosts: [ 'host.docker.internal:host-gateway' ],
+-			},
++			// 'tests-wordpress': {
++			// 	depends_on: [ 'tests-mysql' ],
++			// 	build: {
++			// 		context: '.',
++			// 		dockerfile: 'Tests-WordPress.Dockerfile',
++			// 		args: imageBuildArgs,
++			// 	},
++			// 	ports: [ testsPorts ],
++			// 	environment: {
++			// 		APACHE_RUN_USER: '#' + hostUser.uid,
++			// 		APACHE_RUN_GROUP: '#' + hostUser.gid,
++			// 		...dbEnv.credentials,
++			// 		...dbEnv.tests,
++			// 		WP_TESTS_DIR: '/wordpress-phpunit',
++			// 	},
++			// 	volumes: testsMounts,
++			// 	extra_hosts: [ 'host.docker.internal:host-gateway' ],
++			// },
+ 			cli: {
+ 				depends_on: [ 'wordpress' ],
+ 				build: {
+@@ -245,26 +246,32 @@ module.exports = function buildDockerComposeConfig( config ) {
+ 				},
+ 				extra_hosts: [ 'host.docker.internal:host-gateway' ],
+ 			},
+-			'tests-cli': {
+-				depends_on: [ 'tests-wordpress' ],
+-				build: {
+-					context: '.',
+-					dockerfile: 'Tests-CLI.Dockerfile',
+-					args: imageBuildArgs,
+-				},
+-				volumes: testsMounts,
+-				user: hostUser.fullUser,
+-				environment: {
+-					...dbEnv.credentials,
+-					...dbEnv.tests,
+-					WP_TESTS_DIR: '/wordpress-phpunit',
+-				},
+-				extra_hosts: [ 'host.docker.internal:host-gateway' ],
+-			},
++			// 'tests-cli': {
++			// 	depends_on: [ 'tests-wordpress' ],
++			// 	build: {
++			// 		context: '.',
++			// 		dockerfile: 'Tests-CLI.Dockerfile',
++			// 		args: imageBuildArgs,
++			// 	},
++			// 	volumes: testsMounts,
++			// 	user: hostUser.fullUser,
++			// 	environment: {
++			// 		...dbEnv.credentials,
++			// 		...dbEnv.tests,
++			// 		WP_TESTS_DIR: '/wordpress-phpunit',
++			// 	},
++			// 	extra_hosts: [ 'host.docker.internal:host-gateway' ],
++			// },
++		},
++		networks: {
++			wordpress_network: { 
++				driver: "bridge",
++				name: "wordpress_compose_network",
++			}
+ 		},
+ 		volumes: {
+ 			...( ! config.env.development.coreSource && { wordpress: {} } ),
+-			...( ! config.env.tests.coreSource && { 'tests-wordpress': {} } ),
++			// ...( ! config.env.tests.coreSource && { 'tests-wordpress': {} } ),
+ 			mysql: {},
+ 			'mysql-test': {},
+ 			'user-home': {},
+diff --git a/node_modules/@wordpress/env/lib/commands/clean.js b/node_modules/@wordpress/env/lib/commands/clean.js
+index e3977b3..75a609c 100644
+--- a/node_modules/@wordpress/env/lib/commands/clean.js
++++ b/node_modules/@wordpress/env/lib/commands/clean.js
+@@ -55,13 +55,13 @@ module.exports = async function clean( {
+ 		);
+ 	}
+ 
+-	if ( environment === 'all' || environment === 'tests' ) {
+-		tasks.push(
+-			resetDatabase( 'tests', config )
+-				.then( () => configureWordPress( 'tests', config ) )
+-				.catch( () => {} )
+-		);
+-	}
++	// if ( environment === 'all' || environment === 'tests' ) {
++	// 	tasks.push(
++	// 		resetDatabase( 'tests', config )
++	// 			.then( () => configureWordPress( 'tests', config ) )
++	// 			.catch( () => {} )
++	// 	);
++	// }
+ 
+ 	await Promise.all( tasks );
+ 
+diff --git a/node_modules/@wordpress/env/lib/commands/start.js b/node_modules/@wordpress/env/lib/commands/start.js
+index fed05e4..e21e21b 100644
+--- a/node_modules/@wordpress/env/lib/commands/start.js
++++ b/node_modules/@wordpress/env/lib/commands/start.js
+@@ -162,7 +162,7 @@ module.exports = async function start( {
+ 	spinner.text = 'Starting WordPress.';
+ 
+ 	await dockerCompose.upMany(
+-		[ 'wordpress', 'tests-wordpress', 'cli', 'tests-cli' ],
++		[ 'wordpress', 'cli' ],
+ 		{
+ 			...dockerComposeConfig,
+ 			commandOptions: shouldConfigureWp
+@@ -198,9 +198,9 @@ module.exports = async function start( {
+ 			retry( () => configureWordPress( 'development', config, spinner ), {
+ 				times: 2,
+ 			} ),
+-			retry( () => configureWordPress( 'tests', config, spinner ), {
+-				times: 2,
+-			} ),
++			// retry( () => configureWordPress( 'tests', config, spinner ), {
++			// 	times: 2,
++			// } ),
+ 		] );
+ 
+ 		// Set the cache key once everything has been configured.
+@@ -223,12 +223,12 @@ module.exports = async function start( {
+ 	);
+ 	const mySQLPort = mySQLAddress.split( ':' ).pop();
+ 
+-	const { out: testsMySQLAddress } = await dockerCompose.port(
+-		'tests-mysql',
+-		3306,
+-		dockerComposeConfig
+-	);
+-	const testsMySQLPort = testsMySQLAddress.split( ':' ).pop();
++	// const { out: testsMySQLAddress } = await dockerCompose.port(
++	// 	'tests-mysql',
++	// 	3306,
++	// 	dockerComposeConfig
++	// );
++	// const testsMySQLPort = testsMySQLAddress.split( ':' ).pop();
+ 
+ 	spinner.prefixText = 'WordPress development site started'
+ 		.concat( siteUrl ? ` at ${ siteUrl }` : '.' )
+@@ -237,9 +237,9 @@ module.exports = async function start( {
+ 		.concat( testsSiteUrl ? ` at ${ testsSiteUrl }` : '.' )
+ 		.concat( '\n' )
+ 		.concat( `MySQL is listening on port ${ mySQLPort }` )
+-		.concat(
+-			`MySQL for automated testing is listening on port ${ testsMySQLPort }`
+-		)
++		// .concat(
++		// 	`MySQL for automated testing is listening on port ${ testsMySQLPort }`
++		// )
+ 		.concat( '\n' );
+ 
+ 	spinner.text = 'Done!';
+diff --git a/node_modules/@wordpress/env/lib/init-config.js b/node_modules/@wordpress/env/lib/init-config.js
+index efde002..03c532f 100644
+--- a/node_modules/@wordpress/env/lib/init-config.js
++++ b/node_modules/@wordpress/env/lib/init-config.js
+@@ -138,7 +138,8 @@ RUN groupadd -o -g $HOST_GID $HOST_USERNAME || true
+ RUN useradd -mlo -u $HOST_UID -g $HOST_GID $HOST_USERNAME || true
+ 
+ # Install any dependencies we need in the container.
+-${ installDependencies( 'wordpress', env, config ) }`;
++${ installDependencies( 'wordpress', env, config ) }
++`;
+ }
+ 
+ /**
+@@ -155,6 +156,8 @@ function cliDockerFileContents( env, config ) {
+ 
+ 	return `FROM wordpress:cli${ phpVersion }
+ 
++ENV WP_CLI_ALLOW_ROOT=true
++
+ # Switch to root so we can create users.
+ USER root
+ 

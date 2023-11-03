@@ -1,0 +1,54 @@
+{
+  "name": "wordpress-sxmp-external-sync",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/wordpress/sxmp-external-sync/src",
+  "projectType": "application",
+  "targets": {
+    "// TODO add this command": {},
+    "zip -o sixempress-external-sync.zip -r .": {},
+    "build": {
+      "executor": "@nx/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "compiler": "babel",
+        "outputPath": "dist/apps/wordpress/sxmp-external-sync",
+        "main": "apps/wordpress/sxmp-external-sync/src/index.ts",
+        "tsConfig": "apps/wordpress/sxmp-external-sync/tsconfig.app.json",
+        "webpackConfig": "apps/wordpress/sxmp-external-sync/webpack.config.js"
+      }
+    },
+    "serve": {
+      "executor": "@nx/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "watch": true,
+        "ssl": true,
+        "sslKey": "/certs/live_mount/cert_0/privkey.pem",
+        "sslCert": "/certs/live_mount/cert_0/fullchain.pem",
+        "compiler": "babel",
+        "outputPath": "dist/apps/wordpress/sxmp-external-sync",
+        "main": "apps/wordpress/sxmp-external-sync/src/index.ts",
+        "tsConfig": "apps/wordpress/sxmp-external-sync/tsconfig.app.json",
+        "webpackConfig": "apps/wordpress/sxmp-external-sync/webpack.config.js"
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "apps/wordpress/sxmp-external-sync/**/*.{ts,tsx,js,jsx}"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["coverage/apps/wordpress/sxmp-external-sync"],
+      "options": {
+        "jestConfig": "apps/wordpress/sxmp-external-sync/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

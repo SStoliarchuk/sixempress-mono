@@ -1,0 +1,14 @@
+FROM mongo:4.0.20
+
+# cannot do `sh -c "mkdir /data/test && mongo --dbpath /data/test"` 
+# it does not allow port connection from outside container ??
+
+RUN mkdir /tmp/dev-control
+RUN chmod 777 /tmp/dev-control
+RUN mkdir /tmp/dev-clients
+RUN chmod 777 /tmp/dev-clients
+
+RUN mkdir /tmp/bbb-control
+RUN chmod 777 /tmp/bbb-control
+RUN mkdir /tmp/bbb-clients
+RUN chmod 777 /tmp/bbb-clients

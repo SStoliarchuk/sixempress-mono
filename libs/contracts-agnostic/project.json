@@ -1,0 +1,29 @@
+{
+  "name": "contracts-agnostic",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/contracts-agnostic/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/contracts-agnostic",
+        "main": "libs/contracts-agnostic/src/index.ts",
+        "tsConfig": "libs/contracts-agnostic/tsconfig.lib.json",
+        "assets": ["libs/contracts-agnostic/*.md"]
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "libs/contracts-agnostic/**/*.ts",
+          "libs/contracts-agnostic/package.json"
+        ]
+      }
+    }
+  },
+  "tags": []
+}

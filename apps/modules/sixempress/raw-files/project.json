@@ -1,0 +1,27 @@
+{
+  "name": "modules-sixempress-raw-files",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@stlse/modules-nx:build",
+      "options": {
+        "frontend": {
+          "projectName": "modules-sixempress-raw-files-frontend",
+          "outputPath": "dist/apps/modules/sixempress/raw-files/frontend"
+        },
+        "backend": {
+          "projectName": "modules-sixempress-raw-files-backend",
+          "outputPath": "dist/apps/modules/sixempress/raw-files/backend"
+        },
+        "compressedOutput": "dist/apps/modules/sixempress/raw-files",
+        "compressedOutputName": "modules-sixempress-raw-files"
+      }
+    }
+  },
+  "implicitDependencies": [
+    "modules-sixempress-raw-files-frontend",
+    "modules-sixempress-raw-files-backend"
+  ]
+}

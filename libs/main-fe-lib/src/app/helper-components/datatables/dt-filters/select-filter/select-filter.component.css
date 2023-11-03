@@ -1,0 +1,11 @@
+.select-filter-component-container {
+	display: flex;
+	justify-content: center;
+	flex-wrap: wrap;
+}
+
+.select-filter-component-container > div {
+	padding: 0.3em !important;
+	min-width: 120px !important;
+	max-width: 279px !important;
+}

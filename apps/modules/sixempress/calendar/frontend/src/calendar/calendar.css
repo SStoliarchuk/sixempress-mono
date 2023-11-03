@@ -1,0 +1,114 @@
+
+.rbc-overlay { z-index: 1200; }
+
+.calendar-btns-container {
+	padding-bottom: 0;
+	display: flex;
+	align-items: center;
+}
+.calendar-btns-container > div {
+	margin: 1em;
+}
+.interventions-calendar-container {
+	padding: 1em;
+}
+.interventions-calendar-container *:active,
+.interventions-calendar-container *:focus,
+.interventions-calendar-container * {
+	outline: none !important;
+}
+.interventions-calendar-container > div {
+	min-height: 600px;
+	height: calc(100vh - 220px );
+}
+html.dark .interventions-calendar-container * { 
+	color: white; 
+	border-color: rgb(58, 58, 58);
+}
+html.dark .rbc-date-cell.rbc-off-range > a {
+	color: rgb(31, 33, 20) !important;
+}
+html.dark .rbc-day-bg.rbc-off-range-bg {
+	background-color: rgba(0,0,0,0.2);
+}
+.rbc-selected-cell {
+	background: rgba(0,0,0,0.3) !important;
+}
+html.dark .rbc-day-bg {
+	background-color: var(--page);
+}
+html.light .rbc-today {
+	background-color:	#dffffa;
+}
+html.dark .rbc-today {
+	background-color: #202020;
+}
+.rbc-btn-group button:hover {
+	cursor: pointer;
+}
+html.dark .rbc-btn-group .rbc-active,
+html.dark .rbc-btn-group button:focus,
+html.dark .rbc-btn-group button:active,
+html.dark .rbc-btn-group button:hover
+{
+	background-color: #383838;
+}
+html.dark .rbc-timeslot-group {
+	border-color: #1c1c1c !important;
+}
+
+.rbc-header.rbc-today::after,
+.rbc-date-cell.rbc-now.rbc-current > a::after {
+	content: " oggi";
+	font-size: 11px;
+	font-weight: 100;
+}
+/* TODO this won't work with i18n ..  */
+/* The width is static so changing the label will result in error ?? */
+.rbc-current-time-indicator::before {
+	content: "";
+}
+html.dark .rbc-current-time-indicator::before {
+	background-color: #202020;
+}
+.rbc-day-slot .rbc-time-slot {
+	border: 0;
+}
+
+
+.calendar-popover-event-detail {
+	padding: 0.9em;
+}
+.calendar-popover-event-detail > .cpe-time {
+	display: flex;
+	align-items: center;
+}
+.calendar-popover-event-detail > .cpe-time > *:first-child {
+	margin-right: 0.3em;
+}
+.cpe-title {
+	display: flex;
+	align-items: center;
+}
+.cpe-title > *:first-child {
+	flex-grow: 1;
+	margin-right: 1em;
+}
+
+.rbc-toolbar button:active:hover, 
+.rbc-toolbar button:active:focus, 
+.rbc-toolbar button.rbc-active:hover, 
+.rbc-toolbar button.rbc-active:focus {
+	border: 1px solid transparent;
+}
+
+
+html.dark .rbc-btn-group .rbc-active, 
+html.dark .rbc-btn-group button:focus, 
+html.dark .rbc-btn-group button:active, 
+html.dark .rbc-btn-group button:hover {
+	color: white;
+}
+html.dark .rbc-toolbar {
+	color: white;
+}

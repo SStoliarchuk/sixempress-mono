@@ -1,0 +1,50 @@
+/* This css file is for generic tables style */
+
+
+table.table > thead > tr > th { text-align: left; }
+table.table {
+  width: 100% !important;
+  margin-bottom: 1rem;
+  background-color: transparent;
+	border-collapse: collapse !important;
+}
+table.table > thead > tr > th {
+	white-space: nowrap;
+}
+table.table > thead > tr > th,
+table.table > tbody > tr > th,
+table.table > tbody > tr > td,
+table.table > thead > tr > td {
+  padding: 0.5rem;
+  vertical-align: middle;
+	border-bottom: 1px solid #c7c7c7;
+	text-align: left
+}
+
+/* Small padding => smaller table */
+table.table-sm > thead > tr > th,
+table.table-sm > tbody > tr > th,
+table.table-sm > thead > tr > td,
+table.table-sm > tbody > tr > td {
+	padding: 0.3rem;
+}
+
+/* no wrap :D */
+table.nowrap { white-space: nowrap; }
+
+/* Colors ovverides */
+html.dark table.table > thead > tr > th,
+html.dark table.table > tbody > tr > th,
+html.dark table.table > thead > tr > td,
+html.dark table.table > tbody > tr > td
+{
+	border-bottom: 1px solid #2d2d32;
+}
+
+table.table.no-border > thead > tr > th,
+table.table.no-border > tbody > tr > th,
+table.table.no-border > thead > tr > td,
+table.table.no-border > tbody > tr > td
+{
+	border: 0 !important;
+}

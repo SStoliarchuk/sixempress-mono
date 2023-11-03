@@ -1,0 +1,14 @@
+.customer-info-container table th,
+.customer-info-container table td {
+	text-align: left;
+}
+.customer-info-container table th {
+	padding-right: 1em;
+}
+.customer-info-container table td {
+	font-weight: lighter;
+}
+
+.split-customer-info-table-container > div:first-child {
+	margin-right: 3em;
+}

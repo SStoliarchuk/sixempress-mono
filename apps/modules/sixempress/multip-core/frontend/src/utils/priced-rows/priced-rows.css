@@ -1,0 +1,30 @@
+.priced-row-header, .priced-row-header > div:last-child {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	text-align: right;
+}
+
+.priced-rows-dt > div {
+	border-radius: 0;
+	border: 0;
+}
+
+html.light .priced-row-bottom-paper {
+	background-color: var(--paper) !important;
+}
+
+.priced-row-add-btn-container {
+	display: inline-block;
+	padding: 5px;
+}
+
+table.peek-priced-rows-list-table > tbody > tr > td:nth-child(2) {
+	width: 100%;
+}
+table.peek-priced-rows-list-table > tbody > tr > td:not(:nth-child(2)) {
+	white-space: nowrap;
+}
+table.peek-priced-rows-list-table > tbody > tr > td:not(:nth-child(2)) {
+	text-align: right;
+}

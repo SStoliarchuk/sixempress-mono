@@ -1,0 +1,183 @@
+
+html.dark .paper-accent-better {
+	background-color: var(--paper-accent) !important;
+	/* border: 0 !important; */
+}
+html.light .paper-accent-better {
+	background-color: #e3e3e3 !important;
+}
+	
+
+.df-v-c { align-items: center; }
+.df-h-c { justify-content: center; }
+
+.square-bottom {
+	border-bottom-left-radius: 0 !important;
+	border-bottom-right-radius: 0 !important;
+}
+.square-top {
+	border-top-left-radius: 0 !important;
+	border-top-right-radius: 0 !important;
+}
+
+.select-field-icon > div {
+	padding-bottom: 9px !important;
+	padding-right: 0 !important;
+}
+
+/* Product load table */
+
+.prod-qt-table > thead > tr > th {
+	white-space: nowrap;
+}
+.prod-qt-table-loc-no-change {
+	height: 41px;
+	display: flex;
+	align-items: center
+}
+/* adds some space between a group and the next group
+tr:not(:first-child).table-pad-prod-group > td {
+	padding-top: 3em !important;
+} */
+/* Used to flash the rows during load */
+table.prod-qt-table .flash-bg,
+table.prod-qt-table > tbody > tr {
+	transition: background 500ms
+}
+table.prod-qt-table .flash-bg.on,
+table.prod-qt-table > tbody > tr.on {
+	background: red;
+	transition: 0s;
+}
+/* .load-prod-responsive-table-cont table.responsive-side-th-table td {
+	height: 32px
+} */
+
+
+
+/* Chose-product variation modal */
+/* Used to fix the chose location td header */
+.fix-qt-chose-prod-variant {
+	display: inline-block;
+	position: relative;
+	padding-left: 0.5em;
+	padding-right: 0.6em;
+	/* position: absolute;
+	top: 0; */
+}
+.fix-qt-chose-prod-variant > div {
+	position: relative;
+	top: 5px;
+	right: -0.8em;
+}
+
+
+
+/* DT-Peek info datas */
+
+
+/* in dt do not overflow for the phone */
+table[datatable] .peek-div-info-container {
+	max-width: calc(100vw - 4.3em);
+}
+
+.peek-div-info-container {
+	display: flex; 
+	flex-wrap: wrap; 
+	width: 100%; 
+	padding: 0;
+}
+
+
+@media all and (max-width: 450px) { 
+	.peek-div-info-card {
+		max-width: 100%;
+		width: 100%;
+	}
+}
+.peek-div-info-card {
+	padding: 0.2em 0.6em 0.5em 0.6em;
+	margin: 0.1em 0.3em 0.4em 0.3em;
+	border-radius: 5px;
+	min-width: 200px;
+	max-width: 500px;
+	border: 1px solid rgba(0, 0, 0, 0.25);
+	word-break: break-word; 
+	/* box-shadow: 0px 3px 4px 0px rgba(0, 0, 0, 0.1); */
+	background: white;
+	/* background: #f2f2f2; */
+}
+html.dark .peek-div-info-card {
+	border: 0;
+	/* box-shadow: none; */
+	background: #262626;
+	/* box-shadow: 0px 3px 4px 0px rgba(0, 0, 0, 0.2); */
+	/* background: #303030; */
+}
+
+
+div.peek-card-table > div:nth-child(odd) { font-weight: bold; }
+div.peek-card-table > div:not(:first-child):nth-child(odd) { margin-top: 5px; padding-top: 5px; }
+div.peek-card-table > div:not(:first-child):nth-child(even) { margin-left: 10px; }
+html.light div.peek-card-table > div:not(:first-child):nth-child(odd) { border-top: 1px solid #c7c7c7;}
+html.dark div.peek-card-table > div:not(:first-child):nth-child(odd) { border-top: 1px solid #3a3a40;}
+
+table.peek-card-table {
+	width: 100%;
+}
+table.peek-card-table > tbody > tr:not(:first-child) > th,
+table.peek-card-table > tbody > tr:not(:first-child) > td {
+	padding-top: 5px;
+}
+html.light table.peek-card-table > tbody > tr:not(:first-child) > th,
+html.light table.peek-card-table > tbody > tr:not(:first-child) > td {
+	border-top: 1px solid #c7c7c7;
+}
+html.dark table.peek-card-table > tbody > tr:not(:first-child) > th,
+html.dark table.peek-card-table > tbody > tr:not(:first-child) > td {
+	border-top: 1px solid #3a3a40;
+}
+table.peek-card-table {
+	border-collapse: collapse;
+}
+table.peek-card-table > tbody > tr > th {
+	min-width: 100px;
+	text-align: left;
+	vertical-align: top;
+}
+table.peek-card-table > thead > tr > th, 
+table.peek-card-table > thead > tr > td,
+table.peek-card-table > tbody > tr > th, 
+table.peek-card-table > tbody > tr > td {
+	padding: 2px 5px;
+}
+
+
+/* 
+
+other AKA stuff to short to have a separate css file
+
+*/
+#check-repair-for-delivery-repair-container-info {
+	max-height: 25em;
+	overflow: auto;
+}
+
+
+
+/*  prod table thumb */
+.prod-table-img-thumb {
+	overflow: hidden;
+	width: 50px; height: 50px;
+}
+.prod-table-img-thumb img {
+	width: 100%; height: 100%; object-fit: cover;
+}
+/* no image placeholder */
+.prod-table-img-thumb > div {
+	text-align: center;
+	height: 100%;
+}
+.prod-table-img-thumb > div > svg {
+	height: 100%;
+}

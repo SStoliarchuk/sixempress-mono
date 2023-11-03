@@ -1,0 +1,45 @@
+#category-container .iconContainer .close {
+	opacity: 0.3;
+}
+#category-container .selectCategoryName:hover {
+	color: var(--primary);
+	text-decoration: underline;
+}
+#category-container .group {
+	margin-left: 12px !important;
+	padding-left: 12px !important;
+	border-left: 1px dashed rgba(255,255,255,0.3);
+}
+#category-container .catInput {
+	padding: 0;
+	color: #303030;
+}
+#category-container .catActiveInput {
+	border-bottom: 1px solid #303030;
+}
+#category-container .treeItemLi > div {
+	background: none !important;
+}
+
+#category-container .hover-handler {
+	display: flex;
+	align-items: center; 
+}
+
+#category-container .hover-handler div:nth-child(2) {
+	margin-left: 0.5em;
+}
+#category-container .control-container {
+	display: flex;
+	align-items: center;
+	overflow: hidden;
+	transition: 250ms;
+	width: 0;
+}
+#category-container .control-container.open {
+	width: 4.5em;
+}
+	
+#category-container .control-container.open button {
+	padding: 0;
+}

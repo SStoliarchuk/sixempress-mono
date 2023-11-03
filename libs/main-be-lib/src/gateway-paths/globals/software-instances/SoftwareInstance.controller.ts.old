@@ -1,0 +1,269 @@
+import { Attribute } from "../../utils/enums/attributes.enum";
+import { BePaths } from "../../utils/enums/bepaths.enum";
+import { ModelClass } from '../../utils/enums/model-class.enum';
+import { SysCollection } from '../../utils/enums/sys-collections.enum';
+import { SoftwareInstance } from "./SoftwareInstance.dtd";
+import { ControlAbstractDbApiItemController } from '../../services/control-abstract-db-api-item.controller';
+import { IVerifiableItemDtd, Error403, Error409, DBSaveOptions, DBSaveOptionsMethods, DBSaveReturnValue, FetchableField, ObjectUtils, Error401, RequestHelperService, Error404, AuthHelperService, CustomExpressApp, RequestHandlerService, MongoUtils, IArrayDef } from '@sixempress/main-be-lib';
+import { Request } from 'express';
+import { BulkWriteUpdateOneOperation, Filter, ObjectId } from "mongodb";
+import { ServerNodeController } from "../server-node/ServerNode.controller";
+import { ServerNode } from "../server-node/ServerNode.dtd";
+import moment from 'moment';
+import to from "await-to-js";
+
+export class SoftwareInstanceController extends ControlAbstractDbApiItemController<SoftwareInstance> {
+
+	modelClass: ModelClass.SoftwareInstance = ModelClass.SoftwareInstance;
+	collName = SysCollection.SoftwareInstance;
+	bePath = BePaths.SoftwareInstance;
+
+	requireDocumentLocation = false;
+
+	Attributes = {
+		view: Attribute.viewSoftwareInstance,
+		add: Attribute.addSoftwareInstance,
+		modify: Attribute.modifySoftwareInstance,
+		delete: Attribute.deleteSoftwareInstance,
+	};
+	
+	dtd: IVerifiableItemDtd<SoftwareInstance> = {
+		name: { type: [String], required: true },
+		
+		server: FetchableField.getFieldSettings(ModelClass.ServerNode, true),
+		admins: { type: [Array], required: true, arrayDef: FetchableField.getFieldSettings(ModelClass.Contact, true) as IArrayDef<FetchableField<ModelClass.Contact>> },
+		
+		expires: { type: [Number, Boolean], required: true, regExp: /^[0-9]+$|false/, },
+		slug: { type: [String], required: false, customFn: (v) => v.includes('-') && 'The slug cannot contain -' },
+		loginSlug: { type: [String], required: true },
+
+		locations: { type: [Array], required: true, minArrN: 1, arrayDef: { type: [Object], objDef: [{
+			isActive: { type: [Boolean], required: true },
+			name: { type: [String], required: true },
+			address: { type: [String], required: false },
+			coordinates: { type: [String], required: false },
+			isForStorageOnly: { type: [Boolean], required: false, possibleValues: [true] },
+		}] } },
+	};
+
+	/**
+	 * @override
+	 * Add complete business info drop endpoint
+	 */
+	 public generateBePaths(app: CustomExpressApp, rhs: RequestHandlerService<SoftwareInstance>) {
+		
+		// built info
+		app.get('/' + BePaths.SoftwareInstance + 'complete/:slug', AuthHelperService.requireAttributes(this.Attributes.view), async (req, res) => {
+			const [errGet, info] = await to(this.getCompleteSoftwareInfo(req.params.slug, 'slug', false));
+			if (errGet || !info) return RequestHelperService.respondWithError(res, errGet || new Error404('System slug not found'));
+
+			res.status(200).send(info);
+		});
+
+		super.generateBePaths(app, rhs);
+
+		// // removes the database of the system
+		// app.delete(
+		// 	'/' + this.bePath + ':id/complete', 
+		// 	AuthHelperService.requireAttributes([this.Attributes.delete]),
+		// 	RequestHandlerService.expressMiddleware({paramId: 'validate'}),
+		// 	async (req, res) => {
+		// 		const [e, d] =  await to(this.DROP_ALL_DATABASE_INFORMATION(req, new ObjectId(req.params.id)));
+		// 		if (e) return RequestHelperService.respondWithError(res, e);
+
+		// 		res.sendStatus(200);
+		// 	},
+		// );
+
+	}
+
+
+	// /**
+	//  * @WARNING
+	//  * THIS FUNCTION REMOVES THE DATABASE OF THE BUSINESS AND REMOVES THE BUSINESS INFO FROM SYSTEM_CONTROL
+	//  * USE WITH CAUTION
+	//  */
+	//  private async DROP_ALL_DATABASE_INFORMATION(req: Request, id: ObjectId) {
+
+	// 	const [errFind, find] = await to(this.findOneForUser(req, {_id: id}));
+	// 	if (errFind) { throw errFind; }
+	// 	if (!find) { throw new Error404("Business not found"); }
+
+	// 	const [errDrop, drop] = await to(CS.db.db(find.slug).dropDatabase());
+	// 	if (errDrop) { throw errDrop; }
+
+	// 	const [err, succ] = await to(this.getCollToUse(req).deleteOne({_id: id}));
+	// 	if (err) { throw err; }
+	// }
+
+
+	/**
+	 * @param req The request that contains the user software slug
+	 */
+	public async getSoftwareInfoByReq(req: Request, filterByAuth: boolean = true): Promise<SoftwareInstance> {
+		const slug = RequestHelperService.getSlugByRequest(req);
+
+		const authz = AuthHelperService.getAuthzBody(req);
+		if (!authz) throw new Error401();
+
+		const soft = filterByAuth
+			? await this.getCompleteSoftwareInfo(slug, 'slug', true, { allowedLocations: authz.user.locs, attributes: authz.user.att })
+			: await this.getCompleteSoftwareInfo(slug, 'slug', false)
+		if (!soft) throw new Error401();
+
+		return soft;
+	}
+
+
+	/**
+	 * Builds all the fields to fetch. updates the location id, filter etc..
+	 * @param identifier the uniquely identifier of the software
+	 * @param idType what identifier type is
+	 * @param ensureActive if true it ensures that the business is not deleted/expired
+	 * @param byPermissions given a user it filters the infromation of the software. based on what the user can see (requires attributes)
+	 */
+	public async getCompleteSoftwareInfo(
+		identifier: string | ObjectId, 
+		idType: 'slug' | 'loginSlug' | 'id', 
+		ensureActive: boolean, 
+		byPermissions?: {allowedLocations: string[], attributes: (string | number)[]}
+	): Promise<SoftwareInstance | void> {
+		
+		const filters: Filter<SoftwareInstance> = ensureActive ? {
+			$or: [{expires: false}, {expires: {$gt: moment().unix()}}],
+			_deleted: {$exists: false},
+		} : {};
+
+		if (idType === 'loginSlug')
+			filters.loginSlug = identifier as string;
+		else if (idType === 'slug')
+			filters.slug = identifier as string;
+		else
+			filters._id = MongoUtils.isObjectId(identifier) ? identifier : new ObjectId(identifier);
+
+		const item: SoftwareInstance = await this.getRawCollection().findOne(filters);
+		if (!item) return;
+
+		// add server
+		item.server.fetched = await new ServerNodeController().getRawCollection().findOne({_id: new ObjectId(item.server.id)}) as ServerNode;
+		delete item.server.fetched.publicCert;
+
+		if (!item.slug)
+			item.slug = item._id.toString();
+
+		// once the ids have been assigned, filter the location by user
+		if (byPermissions)
+			SoftwareInstanceController.filterSoftwareInstanceByUser(item, byPermissions);
+
+		return item;
+	}
+
+
+	/**
+	 * Removes things that the user should not see
+	 * @param byPermissions the user to filter the business by
+	 */
+	public static filterSoftwareInstanceByUser(item: (SoftwareInstance & {__tempAllLocations?: SoftwareInstance['locations']}), byPermissions: {allowedLocations: string[], attributes: (string | number)[]}) {
+		// TODO remove
+		item.__tempAllLocations = [...item.locations];
+
+		if (!byPermissions.allowedLocations.includes('*'))
+			item.locations = item.locations.filter(l => byPermissions.allowedLocations.includes(l._id));
+		
+		// just in case a misconfiguration hides all the business we throw
+		if (!item.locations.length)
+			throw new Error401('User is not allowed to view any position associated');
+	}
+
+	/**
+	 * Ensure IDS are unique and locations are not deleted
+	 */
+	protected async executeDbSave<A extends DBSaveOptionsMethods>(
+		req: Request,
+		opts: DBSaveOptions<A, SoftwareInstance>,
+		toSave: A extends "insert" ? SoftwareInstance[] : SoftwareInstance,
+		oldObjInfo: A extends "insert" ? undefined : SoftwareInstance
+	): Promise<DBSaveReturnValue<SoftwareInstance>> {
+
+		if (opts.method === 'update') {
+			
+			// we dont change slug as that would change the whole DB
+			if (oldObjInfo.slug !== (toSave as SoftwareInstance).slug)
+				throw new Error403('Cannot modify SLUG value of a SoftwareInstance');
+
+			// if we are updating the business then do some extra check
+			// check locations to not be deleted as to not reference wrong info
+			if (opts.method === 'update' && !ObjectUtils.areArraysEqual(
+				(toSave as SoftwareInstance).locations.slice(0, oldObjInfo.locations.length).map(l => l._id),
+				oldObjInfo.locations.map(l => l._id)
+			))
+				throw new Error403('A SoftwareInstance location cannot change it\'s "_id" or be removed, only deactivated');
+
+		}
+
+		const bodies: SoftwareInstance[] = Array.isArray(toSave) ? toSave as SoftwareInstance[] : [toSave as SoftwareInstance];
+
+		// assign ids to locations if not present
+		// and check uniqueness
+		for (const body of bodies) {
+			const allLocsId = [];
+
+			for (let i = 0; i < body.locations.length; i++) {
+				const l = body.locations[i];
+				l._id = l._id || (i + 1).toString();
+
+				if (allLocsId.includes(l._id))
+					throw new Error403('"SoftwareInstance.locations.[N]._id" has to be unique')
+
+				allLocsId.push(l._id.toString());
+			}
+		}
+
+
+		await this.ensureUnique(req, bodies, oldObjInfo);
+		const d = await super.executeDbSave(req, opts, toSave, oldObjInfo);
+
+		// TODO remove this once we remove the `slug`
+		if (opts.method === 'insert') {
+			const updateOp: BulkWriteUpdateOneOperation<SoftwareInstance>[] = (toSave as SoftwareInstance[]).map(s => ({
+				updateOne: {
+					filter: {_id: s._id},
+					update: {$set: {slug: s._id.toString()}}
+				}
+			}));
+			await this.getCollToUse(req).bulkWrite(updateOp);
+		}
+
+		return d;
+	}
+	
+
+	/**
+	 * Ensures that slug,loginSlug etc are unique in the system
+	 */
+	private async ensureUnique(req: Request, bodies: SoftwareInstance[], oldObjInfo?: SoftwareInstance) {
+		
+		// the query to use to ensure the unique fields are unique
+		const orQuery = bodies.map(body => ({ loginSlug: body.loginSlug }));
+
+		// check uniqueness of slugs
+		const datas = await this.findForUser(req, oldObjInfo ? { _id: { $ne: oldObjInfo._id }, $or: orQuery } : { $or: orQuery }, { skipFilterControl: true });
+
+		// throw error of colliding slugs
+		if (datas.length !== 0) {
+
+			// search for a value to show
+			for (const d of datas)
+				for (const b of bodies)
+					if (b.loginSlug === d.loginSlug)
+						throw new Error409('The loginSlug with the value: "' + b.loginSlug + '" is not unique');
+
+			// always ensure an error is thrown even if the check above could error (but i dont see how it could)
+			// but just for peace of mind let's keep this line here cause we dont want colliding db names...
+			throw new Error409('One of the required unique fields is not unique');
+		}
+
+	}
+
+
+}

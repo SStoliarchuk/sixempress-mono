@@ -1,0 +1,144 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;1,300&display=swap');
+
+@tailwind base;
+@tailwind components;
+
+:root {
+	--surface: #000000;
+	--surface-text: #ffffff;
+	--primary: #ffeb3b;
+	--primary_text: #000000;
+	--secondary: #ff3d00;
+	--secondary_text: #ffffff;
+}
+
+
+html {
+  background: var(--surface);
+	color: var(--surface-text);
+	font-family: 'Roboto', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+h1 {
+	font-size: 2.25em;
+	font-weight: 500;
+	line-height: 1.1em;
+}
+h2 {
+	font-size: 1.875em;
+	font-weight: 500;
+	line-height: 1.1em;
+}
+.text-body1 {
+	font-size: 1.5625em;
+	font-weight: 500;
+	line-height: 1.1em;
+}
+.text-body2 {
+	font-size: 1.375em;
+	font-weight: 400;
+	line-height: 1.1em;
+}
+.text-sub1 {
+	font-size: 1.25em;
+	font-weight: 300;
+	line-height: 1.1em;
+}
+.text-sub2 {
+	font-size: 1.25em;
+	font-weight: 300;
+	line-height: 1.1em;
+	font-style: italic;
+}
+.text-sub3 {
+	font-size: 0.9375em;
+	font-weight: 300;
+	line-height: 1.1em;
+}
+.text-btn {
+	font-size: 1em;
+	font-weight: 500;
+	line-height: 1.1em;
+}
+.text-logo {
+	font-size: 1.25em;
+	font-weight: 500;
+	line-height: 1.1em;
+}
+
+.bg-surface {
+	background: var(--surface);
+}
+.bg-primary {
+	background: var(--primary);
+}
+
+
+.btn-outlined {
+	@apply text-btn;
+	color: var(--primary);
+	border-color: var(--primary);
+	border-width: 1px;
+	border-radius: 5px;
+	padding: 0.7em 1.2em;
+}
+.btn-contained {
+	@apply text-btn;
+	color: var(--primary_text);
+	background-color: var(--primary);
+	border-radius: 5px;
+	padding: 0.7em 1.2em;
+}
+
+.input-outlined {
+	background-color: var(--surface);
+	color: var(--surface-text);
+	border-color: var(--surface-text);
+	border-width: 1px;
+	border-radius: 5px;
+	padding: 0.7em 1.2em;
+	@apply opacity-50 focus:opacity-100 hover:opacity-100;
+}
+
+/* .btn {
+	@apply transition-all duration-200 font-bold py-2 rounded text-green-600 hover__text-green-700;
+}
+.btn-contained {
+	@apply transition-all duration-200 font-bold py-2 px-4 rounded text-white bg-green-600 hover__bg-green-700;
+}
+.btn-outlined {
+	@apply transition-all duration-200 font-bold py-2 px-4 rounded box-border text-green-600 hover__text-green-600 border-2 border-green-600 hover__border-green-700;
+}
+.btn-2 {
+	@apply btn text-red-300 hover__text-red-400;
+}
+.btn-2-contained {
+	@apply btn-contained bg-red-300 hover__bg-red-400;
+}
+.btn-2-outlined {
+	@apply btn-outlined text-red-300 hover__text-red-400 border-2 border-red-300 hover__border-red-400;
+} */
+
+.btn:disabled,
+.btn-contained:disabled,
+.btn-outlined:disabled,
+.btn-2:disabled,
+.btn-2-contained:disabled,
+.btn-2-outlined:disabled {
+	opacity: .5;
+}
+
+a ~ a,
+button ~ button {
+	margin-left: 5px;
+}
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+@tailwind utilities;

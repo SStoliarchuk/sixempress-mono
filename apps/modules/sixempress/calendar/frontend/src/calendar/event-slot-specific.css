@@ -1,0 +1,20 @@
+.rbc-event { 
+	background-color: var(--primary); 
+	opacity: 0.8; 
+}
+.rbc-event * { 
+	color: var(--primary-text) !important; 
+}
+.rbc-event.rbc-selected {
+	background-color: var(--primary);
+}
+
+.rbc-event.sale-appointment.past:not(.sale-completed) {
+	border-right: 10px solid red;
+	border-color: red !important;
+}
+
+.rbc-event.sale-appointment.sale-completed {
+	border-right: 10px solid green;
+	border-color: green !important;
+}

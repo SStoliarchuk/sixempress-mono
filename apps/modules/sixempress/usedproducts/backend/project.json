@@ -1,0 +1,67 @@
+{
+  "name": "modules-sixempress-usedproducts-backend",
+  "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/modules/sixempress/usedproducts/backend/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nx/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "target": "node",
+        "compiler": "tsc",
+        "outputPath": "dist/apps/modules/sixempress/usedproducts/backend",
+        "main": "apps/modules/sixempress/usedproducts/backend/src/module-entry.ts",
+        "tsConfig": "apps/modules/sixempress/usedproducts/backend/tsconfig.app.json",
+        "assets": [],
+        "outputFileName": "module-entry.js",
+        "isolatedConfig": true,
+        "webpackConfig": "apps/modules/sixempress/usedproducts/backend/webpack.config.js"
+      },
+      "configurations": {
+        "production": {
+          "optimization": true,
+          "extractLicenses": true,
+          "inspect": false,
+          "fileReplacements": [
+            {
+              "replace": "apps/modules/sixempress/usedproducts/backend/src/environments/environment.ts",
+              "with": "apps/modules/sixempress/usedproducts/backend/src/environments/environment.prod.ts"
+            }
+          ]
+        },
+        "development": {
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nx/js:node",
+      "options": {
+        "buildTarget": "modules-sixempress-usedproducts-backend:build:development",
+        "inspect": false,
+        "runtimeArgs": ["--inspect=0.0.0.0"]
+      },
+      "configurations": {
+        "production": {
+          "buildTarget": "modules-sixempress-usedproducts-backend:build:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/modules/sixempress/usedproducts/backend/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["coverage/apps/modules/sixempress/usedproducts/backend"],
+      "options": {
+        "jestConfig": "apps/modules/sixempress/usedproducts/backend/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

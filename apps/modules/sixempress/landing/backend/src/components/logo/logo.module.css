@@ -1,0 +1,8 @@
+.logo > img {
+	object-fit: contain;
+	height: 2em;
+	width: 2em;
+	margin-top: -0.5em;
+	margin-right: 0.5em;
+	/* fill: var(--surface-text); */
+}

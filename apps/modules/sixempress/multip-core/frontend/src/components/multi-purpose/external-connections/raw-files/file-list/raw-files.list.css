@@ -1,0 +1,119 @@
+
+/* for upload area */
+small.dz-sm {
+	font-size: 0.6em;
+}
+small.dz-sm.dz-info {
+	position: relative;
+	top: -12px;
+}
+
+/* other */
+
+ul.file-table {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(210px, max-content));
+	grid-gap: 16px;
+	padding-left: 2em;
+	padding-right: 2em;
+	justify-content: center;
+}
+
+ul.file-table li.file-container {
+	list-style-type: none;
+	margin: 1em;
+	width: 200px;
+	height: 200px;
+	border-radius: 5px;
+	border: 2px solid grey;
+	position: relative;
+	cursor: pointer;
+}
+ul.file-table li.file-container.selected {
+	border-color: var(--primary);
+}
+
+ul.file-table li.file-container > img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+ul.file-table li.file-container > span {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	background: rgba(0, 0, 0, 0.6);
+	width: 100%;
+	padding-top: 5px;
+}
+
+html.light ul.file-table li.file-container > span {
+	background: rgba(255, 255, 255, 0.85);
+}
+
+ul.file-table li.file-container:hover > span {
+	padding-bottom: 10px;
+}
+
+.fullscreen-file-detail-container {
+	width: 100%;
+	overflow: auto;
+	text-align: center;
+}
+.fullscreen-file-detail-container > img {
+	max-width: 100%;
+	max-height: 75vh;
+}
+
+ul.file-table li.file-container video {
+	max-width: 100%;
+}
+.rfl-video-container {
+	position: relative;
+	height: 100%;
+	width: 100%
+}
+.rfl-video-container video {
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	object-fit: contain;
+}
+
+/* Top buttons */
+.file-btn {
+	position: absolute !important;
+	border-radius: 0 !important;
+	top: 0;
+	padding: 12px !important;
+}
+html.light .file-btn, html.light .file-btn:hover  {
+	background: white !important;
+}
+html.dark .file-btn, html.dark .file-btn:hover {
+	background: black !important;
+}
+.file-container.selected .file-btn {
+	border: 2px solid var(--primary);
+	border-top: 0px;
+}
+
+
+/* Cool button to view the checked state */
+.file-select-btn {
+	border-bottom-right-radius: 15px !important;
+	left: 0;
+}
+.file-container.selected .file-select-btn {
+	border-left: 0px;
+}
+
+/* Cool button to view the selected file */
+.file-view-btn {
+	border-bottom-left-radius: 15px !important;
+	right: 0;
+}
+.file-container.selected .file-view-btn {
+	border-right: 0px;
+}

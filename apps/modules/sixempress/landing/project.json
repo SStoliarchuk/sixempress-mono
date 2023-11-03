@@ -1,0 +1,21 @@
+{
+  "name": "modules-sixempress-landing",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@stlse/modules-nx:build-ssr",
+      "options": {
+        "backend": {
+          "projectName": "modules-sixempress-landing-backend",
+          "outputPath": "dist/apps/modules/sixempress/landing"
+        },
+        "preserveStaticIndexHtml": false,
+        "compressedOutput": "dist/apps/modules/sixempress/landing",
+        "compressedOutputName": "modules-sixempress-landing"
+      }
+    }
+  },
+  "implicitDependencies": ["modules-sixempress-landing-backend"]
+}

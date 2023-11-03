@@ -1,0 +1,69 @@
+$xs: 0px;
+$sm: 420px;
+$md: 768px;
+$lg: 1080px;
+$xl: 1920px;
+
+// inverting bootstrap class names order on purpose (d-sm-none => d-none-sm)
+// to not collide with other components breakpoint values
+.d-none { display: none; }
+.d-block { display: block; }
+.d-flex { display: flex; }
+
+@media screen and (min-width: $sm) {
+	.d-none-sm { display: none; }
+	.d-block-sm { display: block; }
+	.d-flex-sm { display: flex; }
+}
+@media screen and (min-width: $md) {
+	.d-none-md { display: none; }
+	.d-block-md { display: block; }
+	.d-flex-md { display: flex; }
+}
+@media screen and (min-width: $lg) {
+	.d-none-lg { display: none; }
+	.d-block-lg { display: block; }
+	.d-flex-lg { display: flex; }
+}
+@media screen and (min-width: $xl) {
+	.d-none-xl { display: none; }
+	.d-block-xl { display: block; }
+	.d-flex-xl { display: flex; }
+}
+
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+
+.secp { cursor: pointer; }
+.se-expand { width: 100%; flex: 1; }
+
+/**
+Fixes
+**/
+
+
+/**
+Specifics
+**/
+
+.lds-dual-ring {
+  display: inline-block;
+}
+.lds-dual-ring::after {
+  content: " ";
+  display: block;
+  width: 46px;
+  height: 46px;
+  margin: 1px;
+	
+	border-radius: 50%;
+	border: 5px solid currentColor;
+	border-color: currentColor transparent currentColor transparent;
+	
+  animation: lds-dual-ring 1.2s linear infinite;
+}
+@keyframes lds-dual-ring {
+0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

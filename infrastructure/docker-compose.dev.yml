@@ -1,0 +1,53 @@
+version: '3.9'
+
+services:
+
+  # use this container to run arbitrary commands
+  # ie. build packages, run unit tests, run webapp dev, etc..
+  command-runner:
+    network_mode: host
+    build:
+      context: '../'
+      dockerfile: ./infrastructure/Dockerfile
+      target: development
+    ports:
+      - 13992:9229
+    volumes:
+      - ../.yalc:/code/.yalc
+      - ../libs:/code/libs
+      - ../apps:/code/apps
+      - ../tools:/code/tools
+      - ../dist:/code/dist
+      - ../common:/code/common
+      - ../package.json:/code/package.json
+      - ../tsconfig.base.json:/code/tsconfig.base.json
+      - ../tmp/modules:/modules
+      - ../tmp/node_modules_cache:/code/node_modules/.cache
+    command: echo "Done"
+
+  raw-files:
+    restart: 'no'
+    build:
+      context: '../'
+      dockerfile: ./infrastructure/Dockerfile
+      target: development
+    ports:
+      - 10293:9229
+      - 21933:21933
+      - 13030:13030
+    volumes:
+      - ../.yalc:/code/.yalc
+      - ../libs:/code/libs
+      - ../apps:/code/apps
+      - ../tools:/code/tools
+      - ../dist:/code/dist
+      - ../package.json:/code/package.json
+      - ../tsconfig.base.json:/code/tsconfig.base.json
+      - ../tmp/modules:/modules
+      - ../tmp/node_modules_cache:/code/node_modules/.cache
+      # to let raw files work
+      - /root/server/docker/volumes/certs/etc/letsencrypt:/certs
+      - /root/server/docker/volumes/certs/etc/letsencrypt/live/${DEV_SERVER_CERT_DIRNAME}:/certs/live_mount/cert_0
+    environment:
+      - ENVIRONMENT=development
+    command: yarn nx serve modules-sixempress-raw-files-backend

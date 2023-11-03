@@ -1,0 +1,279 @@
+:root {
+ --mw-topbar-height: 48px;
+ --mw-open-nav-width: 240px;
+ --mw-closed-nav-width: calc(var(--spacing) * 7);
+}
+
+/**
+
+	Zoom the backgrouind when a modal is opened
+
+	we zoom the mw-content and then do some magic on the topbar
+
+	this is becuase the topbar is fixed and transform on fixed elmenet is not good
+	else we would've used #root to scale all and call it a day
+
+	// TODO add this only on fast devices ?
+*/
+
+@media all and (max-width: 600px) {
+	html #mw-container, html #mw-topbar  {
+		transition-duration: var(--entering-screen);
+	}
+	html[modals-opened] #mw-container {
+		transform: scale(0.9) translateY(-14px);
+	}
+	html[modals-opened] #mw-topbar {
+		transform: scale(0.9) translateY(12px);
+	}
+
+}
+
+
+
+
+.mw-location-menu li > div:first-child {
+	min-width: 34px;
+}
+#mw-topbar {
+	transition-duration: var(--entering-screen);
+	display: flex;
+	width: 100%;
+	position: fixed;
+	top: 0;
+	height: var(--mw-topbar-height);
+	overflow: hidden;
+	z-index: 1001;
+	color: var(--main-text);
+}
+/* html.light #mw-topbar {
+	border-bottom: 1px solid lightgray;
+}
+html.dark #mw-topbar {
+	border-bottom: 1px solid #333333;
+} */
+#mw-topbar > div { 
+	background: var(--page-bg);
+	width: 100% 
+}
+#mw-topbar > div > div { 
+	width: 100%;
+	padding-left: 16px !important;
+	padding-right: 16px !important;
+}
+.menu-btn-text-container {
+	width: 68px;
+}
+
+html.light .menu-btn-text-container {
+	color: #4d4d4d;
+}
+
+@media all and (max-width: 600px) {
+	.menu-btn-text-container {
+		display: none;
+	}
+}
+#mw-topbar .menuButton { 
+	margin-right: 0.1em; 
+}
+
+#mw-container {
+	overflow: hidden;
+	padding-top: var(--mw-topbar-height);
+	display: flex;
+}
+
+
+
+#mw-navigation {
+	height: calc(100% - var(--mw-topbar-height));
+	width: var(--mw-open-nav-width);
+	max-width: var(--mw-open-nav-width);
+	position: fixed;
+	overflow-x: hidden;
+	z-index: 1000;
+	flex-shrink: 0;
+	white-space: nowrap;
+	transition: width var(--entering-screen), transform var(--entering-screen);
+	scrollbar-width: thin;
+}
+#mw-navigation::-webkit-scrollbar { width: 6px }
+
+/* scrollbar colors */
+#mw-navigation { scrollbar-color: rgba(0, 0, 0, 0.14) rgba(0,0,0,0); }
+#mw-navigation::-webkit-scrollbar-thumb { background: rgba(0, 0, 0, 0.14) }
+
+html.dark #mw-navigation { scrollbar-color: var(--paper) rgba(0,0,0,0); }
+html.dark #mw-navigation::-webkit-scrollbar-thumb {  background: var(--paper)  }
+
+
+#mw-navigation.open {
+	padding-right: 5px;
+}
+#mw-navigation.closed { 
+	width: var(--mw-closed-nav-width); 
+}
+#mw-navigation > ul {
+	width: 100%;
+}
+
+@media all and (min-width: 961px) {
+	/* hide the click away on pc */
+	#drawerClickAwayDiv { 
+		display: none; 
+	}
+	/* collapse the drawer */
+	#mw-main {
+		margin-left: var(--mw-open-nav-width);
+	}
+	/* expand the main div */
+	#mw-navigation.closed + #mw-main {
+		margin-left: var(--mw-closed-nav-width); 
+	}
+}
+
+/* stuff for phones/tables */
+@media all and (max-width: 960px) {
+	
+	#drawerClickAwayDiv { 
+		transform: translateX(var(--mw-open-nav-width));
+	}
+	/* add a pixel to allow the ios version to scroll the menu only for ux */
+	#mw-navigation > :first-child {
+		height: calc(100% + 1px);
+	}
+	#mw-navigation {
+		transform: translateX(0);
+		z-index: 0;
+		position: fixed;
+	}
+	#mw-navigation.closed { 
+		width: var(--mw-open-nav-width);
+		transform: translateX(calc(var(--mw-open-nav-width) * -1));
+		/* transform: translateX(calc(var(--mw-open-nav-width) / -2)); */
+	}
+
+	#mw-navigation.open + #mw-main {
+		transform: translateX(var(--mw-open-nav-width));
+	}
+		
+	/* this version is too slow */
+	/* #mw-navigation.open + #mw-main {
+		filter: blur(2px)
+	} */
+
+	/* this version is too slow */
+	/* Add blurred background */
+	/* @supports ((-webkit-backdrop-filter: none) or (backdrop-filter: none)) {
+		#mw-navigation {
+			background: rgba(255, 255, 255, 0.2);
+		}
+		html.dark #mw-navigation {
+			background: rgba(0, 0, 0, 0.6);
+		}
+		#mw-navigation {
+			-webkit-backdrop-filter: blur(15px);
+			backdrop-filter: blur(15px);
+		}
+	} */
+
+}
+
+
+
+html.dark #mw-navigation .activeLink > div {
+	background-color: var(--paper);
+}
+html.light #mw-navigation .activeLink > div {
+	background-color: rgba(0, 0, 0, 0.14)
+}
+#mw-navigation .sidebar-collapse-expand-icon {
+	transition: all 204ms ease 0s;
+	color: white;
+	fill: var(--sub-text);
+}
+#mw-navigation .sidebar-collapse {
+	min-height: 0; 
+	height: 0; 
+	overflow: hidden;
+}
+#mw-navigation .drawer-link {
+	color: var(--main-text);
+	border-top-right-radius: 100em;
+	border-bottom-right-radius: 100em;
+}
+
+
+
+
+
+#mw-main {
+	flex-grow: 1;
+	min-width: 0;
+	padding-top: var(--spacing);
+	transition: margin var(--entering-screen), filter var(--entering-screen), transform var(--entering-screen);
+}
+
+#drawerClickAwayDiv {
+	position: fixed;
+	height: 100vh;
+	width: 100vw;
+	top: 0;
+	left: 0;
+}
+
+/**
+ * The container for all the system pages
+ */
+#mw-content {
+	padding: 0 var(--spacing) calc(var(--spacing) * 4);
+}
+
+.mui-notfs-badge > button {
+	z-index: 10;
+}
+.mui-notfs-badge > span:not(.MuiBadge-invisible) {
+	z-index: 1;
+	animation: mw-notfs-bounce 500ms infinite;
+}
+
+@keyframes mw-notfs-bounce {
+  0%, 100% {
+    transform: translateX(-5px) translateY(-10%);
+    animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+  }
+  50% {
+    transform: translateX(-5px) translateY(60%);
+    animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+  }
+}
+
+
+
+
+.mw-menu-main-popover > .MuiPopover-paper {
+	overflow: visible;
+	background: none !important;
+	box-shadow: none !important;
+}
+.mw-menu-main-popover > .MuiPopover-paper > div:not(.notfs-container) {
+	box-shadow: 0px 5px 5px -3px rgb(0 0 0 / 20%), 0px 8px 10px 1px rgb(0 0 0 / 14%), 0px 3px 14px 2px rgb(0 0 0 / 12%);
+}
+.notfs-container > div {
+	display: flex;
+	align-items: center;
+	margin-bottom: 1em;
+	box-shadow: 0 0 2px 1px var(--primary);
+}
+
+.notfs-container > div > div:not(:last-child) {
+	padding-left: 10px;
+	flex-grow: 1;
+}
+
+.notfs-container > div > div:last-child button {
+	min-width: 0 !important;
+	padding: 0 10px !important;
+}
+

@@ -1,0 +1,61 @@
+{
+  "name": "modules-sixempress-multip-core-backend",
+  "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/modules/sixempress/multip-core/backend/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nx/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "target": "node",
+        "compiler": "tsc",
+        "outputPath": "dist/apps/modules/sixempress/multip-core/backend",
+        "main": "apps/modules/sixempress/multip-core/backend/src/module-entry.ts",
+        "tsConfig": "apps/modules/sixempress/multip-core/backend/tsconfig.app.json",
+        "assets": [],
+        "outputFileName": "module-entry.js",
+        "isolatedConfig": true,
+        "webpackConfig": "apps/modules/sixempress/multip-core/backend/webpack.config.js"
+      },
+      "configurations": {
+        "production": {
+          "optimization": true,
+          "extractLicenses": true,
+          "inspect": false
+        },
+        "development": {
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nx/js:node",
+      "options": {
+        "buildTarget": "modules-sixempress-multip-core-backend:build:development",
+        "inspect": false,
+        "runtimeArgs": ["--inspect=0.0.0.0"]
+      },
+      "configurations": {
+        "production": {
+          "buildTarget": "modules-sixempress-multip-core-backend:build:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/modules/sixempress/multip-core/backend/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["coverage/apps/modules/sixempress/multip-core/backend"],
+      "options": {
+        "jestConfig": "apps/modules/sixempress/multip-core/backend/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

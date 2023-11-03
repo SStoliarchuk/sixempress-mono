@@ -1,0 +1,42 @@
+.content_circle {
+	position: absolute;
+	height: 14em;
+	width: 14em;
+	left: calc(50% - calc(14em / 2));
+	top: calc(50% - calc(14em / 2));
+
+	border: 2px solid var(--primary);
+	border-radius: 1000em;
+	z-index: -1;
+}
+
+.cc1 {
+	transform: scale(1.5);
+	opacity: 0.1;
+	animation: 3s ease-in-out 300ms infinite alternate pulse_cc1;
+}
+
+.cc2 {
+	transform: scale(1.25);
+	opacity: 0.5;
+	animation: 3s ease-in-out 150ms infinite alternate pulse_cc2;
+}
+
+.cc3 {
+	background: var(--surface) !important;
+	animation: 3s ease-in-out 0s infinite alternate pulse_cc3;
+}
+
+
+@keyframes pulse_cc1 {
+	from { transform: scale(1.5) }
+  to { transform: scale(1.55) }
+}
+@keyframes pulse_cc2 {
+	from { transform: scale(1.25) }
+  to { transform: scale(1.4) }
+}
+@keyframes pulse_cc3 {
+	from { transform: scale(1) }
+  to { transform: scale(1.2) }
+}

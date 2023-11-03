@@ -1,0 +1,92 @@
+{
+  "name": "modules-sixempress-raw-files-backend",
+  "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/modules/sixempress/raw-files/backend/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nx/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "target": "node",
+        "compiler": "tsc",
+        "outputPath": "dist/apps/modules/sixempress/raw-files/backend",
+        "main": "apps/modules/sixempress/raw-files/backend/src/module-entry.ts",
+        "tsConfig": "apps/modules/sixempress/raw-files/backend/tsconfig.app.json",
+        "assets": ["apps/modules/sixempress/raw-files/backend/src/assets"],
+        "isolatedConfig": true,
+        "webpackConfig": "apps/modules/sixempress/raw-files/backend/webpack.config.js",
+        "outputFileName": "module-entry.js",
+        "fileReplacements": []
+      },
+      "configurations": {
+        "development": {
+          "fileReplacements": []
+        },
+        "production": {
+          "// make sure that fileReplacements replaces prod/dev with stlse in case we accidentely build to prod with the wrong json": "",
+          "fileReplacements": [
+            {
+              "replace": "apps/modules/sixempress/raw-files/backend/src/assets/prod.secret.key.json",
+              "with": "apps/modules/sixempress/raw-files/backend/src/assets/stlse.secret.key.json"
+            },
+            {
+              "replace": "apps/modules/sixempress/raw-files/backend/src/assets/dev.secret.key.json",
+              "with": "apps/modules/sixempress/raw-files/backend/src/assets/stlse.secret.key.json"
+            }
+          ]
+        }
+      }
+    },
+    "pkg": {
+      "dependsOn": ["build"],
+      "executor": "nx:run-commands",
+      "options": {
+        "outputPath": "dist/apps/modules/sixempress/raw-files/backend",
+        "command": "yarn _pkg dist/apps/modules/sixempress/raw-files/backend/module-entry.js -o dist/apps/modules/sixempress/raw-files/backend/main.pkg"
+      }
+    },
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "modules-sixempress-raw-files-backend:build",
+        "inspect": false,
+        "runtimeArgs": ["--inspect=0.0.0.0"]
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "modules-sixempress-raw-files-backend:build:development"
+        },
+        "production": {
+          "buildTarget": "modules-sixempress-raw-files-backend:build:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "apps/modules/sixempress/raw-files/backend/**/*.ts"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/modules/sixempress/raw-files/backend/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
+    }
+  },
+  "tags": []
+}

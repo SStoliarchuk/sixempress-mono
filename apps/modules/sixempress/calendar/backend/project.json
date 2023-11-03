@@ -1,0 +1,74 @@
+{
+  "name": "modules-sixempress-calendar-backend",
+  "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/modules/sixempress/calendar/backend/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nx/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "target": "node",
+        "compiler": "tsc",
+        "outputPath": "dist/apps/modules/sixempress/calendar/backend",
+        "main": "apps/modules/sixempress/calendar/backend/src/module-entry.ts",
+        "tsConfig": "apps/modules/sixempress/calendar/backend/tsconfig.app.json",
+        "assets": [],
+        "isolatedConfig": true,
+        "webpackConfig": "apps/modules/sixempress/calendar/backend/webpack.config.js",
+        "outputFileName": "module-entry.js"
+      },
+      "configurations": {
+        "development": {
+          "fileReplacements": []
+        },
+        "production": {
+          "fileReplacements": [
+            {
+              "replace": "apps/modules/sixempress/calendar/backend/src/environments/environment.ts",
+              "with": "apps/modules/sixempress/calendar/backend/src/environments/environment.prod.ts"
+            }
+          ]
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "modules-sixempress-calendar-backend:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "modules-sixempress-calendar-backend:build:development"
+        },
+        "production": {
+          "buildTarget": "modules-sixempress-calendar-backend:build:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/modules/sixempress/calendar/backend/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/modules/sixempress/calendar/backend/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
+    }
+  },
+  "tags": []
+}

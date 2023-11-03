@@ -1,0 +1,17 @@
+
+/* 
+	When you removePaper true, we need to add a generic header back to the modal to allow the user to close it simply
+	the problema is it's ugly when there's random space, so here we fuse title and content 
+*/
+.modal-service-title {
+	border-bottom: 0 !important;
+	border-bottom-left-radius: 0 !important;
+	border-bottom-right-radius: 0 !important;
+	z-index: 1;
+	position: relative;
+	margin-bottom: -3px;
+}
+.modal-service-title > *:first-child {
+	padding-top: 0;
+	padding-bottom: 0;
+}

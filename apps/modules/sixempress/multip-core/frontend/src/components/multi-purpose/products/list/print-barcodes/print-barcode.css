@@ -1,0 +1,18 @@
+.dymo-error {
+	display: inline-block;
+	border-radius: 100%;
+	vertical-align: middle;
+	width: 1em;
+	height: 1em;
+	border: 2px solid var(--primary);
+	background: red;
+}
+.dymo-success {
+	display: inline-block;
+	border-radius: 100%;
+	vertical-align: middle;
+	width: 1em;
+	height: 1em;
+	border: 2px solid var(--primary);
+	background: green;
+}

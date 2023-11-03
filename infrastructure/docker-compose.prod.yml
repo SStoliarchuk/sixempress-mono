@@ -1,0 +1,20 @@
+version: '3.9'
+
+services:
+
+  raw-files:
+    restart: always
+    build:
+      context: '../'
+      dockerfile: ./infrastructure/Dockerfile
+      target: production-raw-files
+    ports:
+      - 21935:21935
+      - 13030:13030
+    volumes:
+      # we need https for upload
+      - ../apps/modules/sixempress/raw-files/backend/env:/code/env
+      - /root/server/docker/volumes/certs/etc/letsencrypt/dynamic/${CERT_LIVE_DIRNAME_0}:/certs/live_mount/cert_0
+    environment:
+      - ENVIRONMENT=production
+    command: /raw-files.pkg

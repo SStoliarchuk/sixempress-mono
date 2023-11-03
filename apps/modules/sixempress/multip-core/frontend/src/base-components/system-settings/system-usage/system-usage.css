@@ -1,0 +1,12 @@
+.chart-bar {
+	width: 100%;
+	max-width: 15px;
+	margin-right: 2px;
+	border-top-left-radius: 100px;
+	border-top-right-radius: 100px;
+	/* border-radius: 10em; */
+	background: var(--primary);
+}
+.chart-bar:hover {
+	background: var(--secondary);
+}

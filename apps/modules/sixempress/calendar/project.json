@@ -1,0 +1,27 @@
+{
+  "name": "modules-sixempress-calendar",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@stlse/modules-nx:build",
+      "options": {
+        "frontend": {
+          "projectName": "modules-sixempress-calendar-frontend",
+          "outputPath": "dist/apps/modules/sixempress/calendar/frontend"
+        },
+        "backend": {
+          "projectName": "modules-sixempress-calendar-backend",
+          "outputPath": "dist/apps/modules/sixempress/calendar/backend"
+        },
+        "compressedOutput": "dist/apps/modules/sixempress/calendar",
+        "compressedOutputName": "modules-sixempress-calendar"
+      }
+    }
+  },
+  "implicitDependencies": [
+    "modules-sixempress-calendar-frontend",
+    "modules-sixempress-calendar-backend"
+  ]
+}

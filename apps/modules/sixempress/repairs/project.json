@@ -1,0 +1,27 @@
+{
+  "name": "modules-sixempress-repairs",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@stlse/modules-nx:build",
+      "options": {
+        "frontend": {
+          "projectName": "modules-sixempress-repairs-frontend",
+          "outputPath": "dist/apps/modules/sixempress/repairs/frontend"
+        },
+        "backend": {
+          "projectName": "modules-sixempress-repairs-backend",
+          "outputPath": "dist/apps/modules/sixempress/repairs/backend"
+        },
+        "compressedOutput": "dist/apps/modules/sixempress/repairs",
+        "compressedOutputName": "modules-sixempress-repairs"
+      }
+    }
+  },
+  "implicitDependencies": [
+    "modules-sixempress-repairs-frontend",
+    "modules-sixempress-repairs-backend"
+  ]
+}

@@ -1,0 +1,1 @@
+export const SocketService: any = 0;

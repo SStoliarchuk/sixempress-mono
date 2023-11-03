@@ -1,0 +1,24 @@
+{
+  "name": "modules-felib-shim",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/modules-felib-shim/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/modules-felib-shim/**/*.{ts,tsx,js,jsx}"]
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/libs/modules-felib-shim"],
+      "options": {
+        "jestConfig": "libs/modules-felib-shim/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  }
+}

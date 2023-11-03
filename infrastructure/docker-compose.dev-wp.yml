@@ -1,0 +1,22 @@
+version: '3.9'
+
+services:
+
+  nginx:
+    build:
+      context: '../'
+      dockerfile: ./infrastructure/Dockerfile.nginx
+    ports:
+      - '18899:18899'
+    networks:
+      - wordpress_network
+    volumes:
+      - ./nginx-wp.conf:/etc/nginx/conf.d/default-wp.conf
+      - /root/server/docker/volumes/certs/etc/letsencrypt:/certs
+      - /root/server/docker/volumes/certs/etc/letsencrypt/live/${DEV_SERVER_CERT_DIRNAME}:/certs/live_mount/cert_0
+      - /root/server/docker/volumes/certs/etc/letsencrypt/live/admin.sixempress.com:/certs/live_mount/cert_1
+
+networks:
+  wordpress_network:
+    external: true
+    name: wordpress_compose_network
